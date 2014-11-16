@@ -2,6 +2,7 @@
 
 import argparse
 import os
+import sys
 
 
 def main():
@@ -16,6 +17,10 @@ def main():
         '$HOME', '.local', 'share', 'wineprefixes', args.bottle)
 
     if args.wine:
+
+        if not os.path.isfile(args.wine):
+            print 'Wine must be the path to an executable'
+            sys.exit(1)
 
         wine_ver_path = os.path.expanduser(
             os.path.dirname(os.path.dirname(args.wine)))
