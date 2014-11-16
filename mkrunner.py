@@ -12,29 +12,46 @@ def main():
     )
     args = parser.parse_args()
 
-    prefix = os.path.join(
+    wine_prefix = os.path.join(
         '$HOME', '.local', 'share', 'wineprefixes', args.bottle)
 
     if args.wine:
+
+        wine_ver_path = os.path.expanduser(
+            os.path.dirname(os.path.dirname(args.wine)))
+
+        path = ':'.join([os.path.join(wine_ver_path, 'bin'), '$PATH'])
+        wine_server = os.path.join(wine_ver_path, 'bin', 'wineserver')
+        wine_loader = os.path.join(wine_ver_path, 'bin', 'wine')
+        wine_dll_path = os.path.join(wine_ver_path, 'lib', 'wine', 'fakedlls')
+        ld_library_path = ':'.join(
+            [os.path.join(wine_ver_path, 'lib'), '$LD_LIBRARY_PATH']
+        )
+
         print wine_template.format(
-            W=os.path.expanduser(os.path.dirname(args.wine)),
-            prefix=prefix)
+            wine_ver_path=wine_ver_path,
+            path=path,
+            wine_server=wine_server,
+            wine_loader=wine_loader,
+            wine_dll_path=wine_dll_path,
+            ld_library_path=ld_library_path,
+            wine_prefix=wine_prefix)
     else:
-        print bottle_template.format(prefix=prefix)
+        print bottle_template.format(wine_prefix=wine_prefix)
 
 
 bottle_template = """#!/usr/bin/env bash
-export WINEPREFIX={prefix}
+export WINEPREFIX={wine_prefix}
 wine $@"""
 
 wine_template = """#!/usr/bin/env bash
-export WINEVERPATH={W}
-export PATH={W}:$PATH
-export WINESERVER={W}/bin/wineserver
-export WINELOADER={W}/bin/wine
-export WINEDLLPATH={W}/lib/wine/fakedlls
-export LD_LIBRARY_PATH={W}/lib:$LD_LIBRARY_PATH
-export WINEPREFIX={prefix}
+export WINEVERPATH={wine_ver_path}
+export PATH={path}
+export WINESERVER={wine_server}
+export WINELOADER={wine_loader}
+export WINEDLLPATH={wine_dll_path}
+export LD_LIBRARY_PATH={ld_library_path}
+export WINEPREFIX={wine_prefix}
 wine $@"""
 
 
