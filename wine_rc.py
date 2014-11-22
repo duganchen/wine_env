@@ -127,3 +127,22 @@ class UncorkRC(WineRC):
         io.write('_OLD_WD=$(pwd)\n')
         io.write('cd {0}\n'.format(self._prefix))
         return io.getvalue()
+
+
+class CorkRC(WineRC):
+
+    def get_rc(self):
+        env = self.get_env()
+
+        io = StringIO()
+
+        for key in env.keys():
+            io.write('if [ "$_OLD_{0}" = "" ]; then\n'.format(key))
+            io.write('\tunset {0}\n'.format(key))
+            io.write('else\n')
+            io.write('\texport {0}="$_OLD_{1}"\n'.format(key, key))
+            io.write('fi\n')
+            io.write('unset _OLD_{0}\n'.format(key))
+            io.write('\n')
+
+        return io.getvalue()
