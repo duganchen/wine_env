@@ -4,20 +4,20 @@ bottle() {
 	1)
 		mkdir -p "$HOME/.local/share/wineprefixes/$1/bin"
 
-		mkuncorkrc "$1" > "$HOME/.local/share/wineprefixes/$1/bin/uncorkrc"
-		mkcorkrc "$1" > "$HOME/.local/share/wineprefixes/$1/bin/corkrc"
-		mkrunrc "$1" > "$HOME/.local/share/wineprefixes/$1/bin/runrc"
-		. "$HOME/.local/share/wineprefixes/$1/bin/uncorkrc"
+		mkuncorkrc "$1" > "$HOME/.local/share/wineprefixes/$1/bin/uncorkrc.sh"
+		mkcorkrc "$1" > "$HOME/.local/share/wineprefixes/$1/bin/corkrc.sh"
+		mkrunrc "$1" > "$HOME/.local/share/wineprefixes/$1/bin/runrc.sh"
+		. "$HOME/.local/share/wineprefixes/$1/bin/uncorkrc.sh"
 		;;
 
 	2)
 		if [ -x $2 ]; then
 			mkdir -p "$HOME/.local/share/wineprefixes/$1/bin"
 
-			mkuncorkrc --wine "$2" "$1" > "$HOME/.local/share/wineprefixes/$1/bin/uncorkrc"
-			mkcorkrc --wine "$2" "$1" > "$HOME/.local/share/wineprefixes/$1/bin/corkrc"
-			mkrunrc --wine "$2" "$1" > "$HOME/.local/share/wineprefixes/$1/bin/runrc"
-			. "$HOME/.local/share/wineprefixes/$1/bin/uncorkrc"
+			mkuncorkrc --wine "$2" "$1" > "$HOME/.local/share/wineprefixes/$1/bin/uncorkrc.sh"
+			mkcorkrc --wine "$2" "$1" > "$HOME/.local/share/wineprefixes/$1/bin/corkrc.sh"
+			mkrunrc --wine "$2" "$1" > "$HOME/.local/share/wineprefixes/$1/bin/runrc.sh"
+			. "$HOME/.local/share/wineprefixes/$1/bin/uncorkrc.sh"
 
 		else
 			echo /path/to/wine must be the path to a Wine execuable
@@ -37,9 +37,8 @@ uncork() {
 
 	case $# in
 	1)
-		if [ -f "$HOME/.local/share/wineprefixes/$1/bin/uncorkrc" ]; then
-			. "$HOME/.local/share/wineprefixes/$1/bin/uncorkrc"
-			cd "$HOME/.local/share/wineprefixes/$1"
+		if [ -f "$HOME/.local/share/wineprefixes/$1/bin/uncorkrc.sh" ]; then
+			. "$HOME/.local/share/wineprefixes/$1/bin/uncorkrc.sh"
 		else
 			echo Invalid prefix
 		fi

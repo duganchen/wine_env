@@ -30,11 +30,11 @@ if [ ! -f "$RUNRC" ];  then
 fi
 
 # If we already have an environment loaded, clear it out.
-if [ -f "$WINEPREFIX/bin/uncorkrc" ]; then
-    . "$WINEPREFIX/bin/uncorkrc"
+if [ -f "$WINEPREFIX/bin/uncorkrc.sh" ]; then
+    . "$WINEPREFIX/bin/uncorkrc.sh"
 fi
 
-. "$HOME/.local/share/wineprefixes/$1/bin/runrc"
+. "$HOME/.local/share/wineprefixes/$1/bin/runrc.sh"
 
 args=( $@ )
 $2 ${args[@]:2}
