@@ -1,23 +1,23 @@
-function mkbottle {
+mkbottle() {
 
 	case $# in
 	1)
-		mkdir -p $HOME/.local/share/wineprefixes/$1/bin
+		mkdir -p "$HOME/.local/share/wineprefixes/$1/bin"
 
-		mkuncorkrc $1 > $HOME/.local/share/wineprefixes/$1/bin/uncorkrc
-		mkcorkrc $1 > $HOME/.local/share/wineprefixes/$1/bin/corkrc
-		mkrunrc $1 > $HOME/.local/share/wineprefixes/$1/bin/runrc
-		source $HOME/.local/share/wineprefixes/$1/bin/uncorkrc
+		mkuncorkrc "$1" > "$HOME/.local/share/wineprefixes/$1/bin/uncorkrc"
+		mkcorkrc "$1" > "$HOME/.local/share/wineprefixes/$1/bin/corkrc"
+		mkrunrc "$1" > "$HOME/.local/share/wineprefixes/$1/bin/runrc"
+		. "$HOME/.local/share/wineprefixes/$1/bin/uncorkrc"
 		;;
 
 	2)
 		if [ -x $2 ]; then
-			mkdir -p $HOME/.local/share/wineprefixes/$1/bin
+			mkdir -p "$HOME/.local/share/wineprefixes/$1/bin"
 
-			mkuncorkrc --wine $2 $1 > $HOME/.local/share/wineprefixes/$1/bin/uncorkrc
-			mkcorkrc --wine $2 $1 > $HOME/.local/share/wineprefixes/$1/bin/corkrc
-			mkrunrc --wine $2 $1 > $HOME/.local/share/wineprefixes/$1/bin/runrc
-			source $HOME/.local/share/wineprefixes/$1/bin/uncorkrc
+			mkuncorkrc --wine "$2" "$1" > "$HOME/.local/share/wineprefixes/$1/bin/uncorkrc"
+			mkcorkrc --wine "$2" "$1" > "$HOME/.local/share/wineprefixes/$1/bin/corkrc"
+			mkrunrc --wine "$2" "$1" > "$HOME/.local/share/wineprefixes/$1/bin/runrc"
+			. "$HOME/.local/share/wineprefixes/$1/bin/uncorkrc"
 
 		else
 			echo /path/to/wine must be the path to a Wine execuable
@@ -33,13 +33,13 @@ function mkbottle {
 }
 
 
-function uncork {
+uncork() {
 
 	case $# in
 	1)
-		if [ -f $HOME/.local/share/wineprefixes/$1/bin/uncorkrc ]; then
-			source $HOME/.local/share/wineprefixes/$1/bin/uncorkrc
-			cd $HOME/.local/share/wineprefixes/$1
+		if [ -f "$HOME/.local/share/wineprefixes/$1/bin/uncorkrc" ]; then
+			. "$HOME/.local/share/wineprefixes/$1/bin/uncorkrc"
+			cd "$HOME/.local/share/wineprefixes/$1"
 		else
 			echo Invalid prefix
 		fi
@@ -50,4 +50,9 @@ function uncork {
 		;;
 
 	esac
+}
+
+
+lsp() {
+	ls $* "$HOME/.local/share/wineprefixes"
 }

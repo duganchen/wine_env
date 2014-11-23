@@ -112,7 +112,7 @@ class UncorkRC(WineRC):
 
         io.write('\n')
 
-        io.write('function cork {\n')
+        io.write('cork() {\n')
         io.write('\n')
         corker = os.path.join(self._prefix, 'bin', 'corkrc')
         io.write('\t. {0}\n'.format(corker))
@@ -129,6 +129,7 @@ class UncorkRC(WineRC):
 
         io.write('\tunset -f cork\n')
         io.write('\tunset W\n')
+        io.write('\tunset -f goc\n')
 
         io.write('}\n')
 
@@ -137,6 +138,10 @@ class UncorkRC(WineRC):
         io.write('PS1="({0})$PS1"\n'.format(self._bottle))
         io.write('_OLD_WD=$(pwd)\n')
         io.write('cd {0}\n'.format(self._prefix))
+        io.write('\n')
+        io.write('goc() {\n')
+        io.write('\tcd $WINEPREFIX/drive_c\n')
+        io.write('}\n')
         return io.getvalue()
 
 
