@@ -105,15 +105,20 @@ class UncorkRC(WineRC):
 
         io.write('function cork {\n')
         io.write('\n')
-        uncorker = os.path.join(self._prefix, 'bin', 'corkrc')
-        io.write('\t. {0}\n'.format(uncorker))
+        corker = os.path.join(self._prefix, 'bin', 'corkrc')
+        io.write('\t. {0}\n'.format(corker))
         io.write('\n')
 
-        io.write('\tPS1="$_OLD_PS1"\n')
-        io.write('\tunset _OLD_PS1\n')
-        io.write('\n')
-        io.write('\tcd $_OLD_WD\n')
-        io.write('\tunset _OLD_WD\n')
+        for key in ('PS1', 'WD'):
+            io.write('\tif [ "$_OLD_{0}" = "" ]; then\n'.format(key))
+            io.write('\t\tunset {0}\n'.format(key))
+            io.write('\telse\n')
+            io.write('\t\texport {0}="$_OLD_{1}"\n'.format(key, key))
+            io.write('\tfi\n')
+            io.write('\tunset _OLD_{0}\n'.format(key))
+            io.write('\n')
+
+        io.write('\tunset -f cork\n')
 
         io.write('}\n')
 
