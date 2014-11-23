@@ -12,4 +12,14 @@ if [ "$#" -lt 2 ]; then
     exit 1
 fi
 
-env -i _wine-run $@
+RUNRC=~/.local/share/wineprefixes/$1/bin/runrc
+
+if [ ! -f $RUNRC ];  then
+    echo "$RUNRC not found."
+    exit 1
+fi
+
+. ~/.local/share/wineprefixes/$1/bin/runrc
+
+args=( $@ )
+$2 ${args[@]:2}
