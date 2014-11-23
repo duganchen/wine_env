@@ -12,6 +12,10 @@ if [ "$#" -lt 2 ]; then
     exit 1
 fi
 
+if [ -f "$WINEPREFIX/bin/uncorkrc" ]; then
+	. "$WINEPREFIX/bin/uncorkrc"
+fi
+
 RUNRC=~/.local/share/wineprefixes/$1/bin/runrc
 
 if [ ! -f $RUNRC ];  then
