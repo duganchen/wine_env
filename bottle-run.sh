@@ -21,9 +21,9 @@ if [ ! -d "$HOME/.local/share/wineprefixes/$1" ]; then
     exit 1
 fi
 
-RUNRC=~/.local/share/wineprefixes/$1/bin/runrc
+RUNRC="$HOME/.local/share/wineprefixes/$1/bin/runrc"
 
-if [ ! -f $RUNRC ];  then
+if [ ! -f "$RUNRC" ];  then
     echo "$RUNRC not found."
     echo "Please use mkbottle to recreate the bottle."
     exit 1
@@ -34,7 +34,7 @@ if [ -f "$WINEPREFIX/bin/uncorkrc" ]; then
     . "$WINEPREFIX/bin/uncorkrc"
 fi
 
-. ~/.local/share/wineprefixes/$1/bin/runrc
+. "$HOME/.local/share/wineprefixes/$1/bin/runrc"
 
 args=( $@ )
 $2 ${args[@]:2}
