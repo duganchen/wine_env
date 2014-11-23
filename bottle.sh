@@ -4,22 +4,20 @@ function mkbottle {
 	1)
 		mkdir -p $HOME/.local/share/wineprefixes/$1/bin
 
-		mkrunner $1 > $HOME/.local/share/wineprefixes/$1/bin/wine
-		chmod +x $HOME/.local/share/wineprefixes/$1/bin/wine
-
-		mkopener $1 > $HOME/.local/share/wineprefixes/$1/bin/uncork
-		source $HOME/.local/share/wineprefixes/$1/bin/uncork
+		mkopener $1 > $HOME/.local/share/wineprefixes/$1/bin/uncorkrc
+		mkcorkrc $1 > $HOME/.local/share/wineprefixes/$1/bin/corkrc
+		mkrunkrc $1 > $HOME/.local/share/wineprefixes/$1/bin/runrc
+		source $HOME/.local/share/wineprefixes/$1/bin/uncorkrc
 		;;
 
 	2)
 		if [ -x $2 ]; then
 			mkdir -p $HOME/.local/share/wineprefixes/$1/bin
 
-			mkrunner --wine $2 $1 > $HOME/.local/share/wineprefixes/$1/bin/wine
-			chmod +x $HOME/.local/share/wineprefixes/$1/bin/wine
-
-			mkopener --wine $2 $1 > $HOME/.local/share/wineprefixes/$1/bin/uncork
-			source $HOME/.local/share/wineprefixes/$1/bin/uncork
+			mkopener --wine $2 $1 > $HOME/.local/share/wineprefixes/$1/bin/uncorkrc
+			mkcorkrc --wine $2 $1 > $HOME/.local/share/wineprefixes/$1/bin/corkrc
+			mkrunkrc --wine $2 $1 > $HOME/.local/share/wineprefixes/$1/bin/runrc
+			source $HOME/.local/share/wineprefixes/$1/bin/uncorkrc
 
 		else
 			echo /path/to/wine must be the path to a Wine execuable
@@ -35,7 +33,7 @@ function mkbottle {
 }
 
 
-function bottle {
+function uncork {
 
 	case $# in
 	1)
@@ -47,8 +45,8 @@ function bottle {
 		fi
 		;;
 	*)
-		echo bottle BottleName
-		echo e.g. bottle PvZ
+		echo uncork BottleName
+		echo e.g. uncork PvZ
 		;;
 
 	esac

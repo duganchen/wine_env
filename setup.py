@@ -6,7 +6,7 @@ import shutil
 if not os.path.isdir('scripts'):
     os.makedirs('scripts')
 
-raw_scripts = ('mkcorker.py', 'mkopener.py', 'mkrunner.py', 'wine-run.sh')
+raw_scripts = ('mkcorkrc.py', 'mkuncorkrc.py', 'mkrunrc.py', 'wine-run.sh')
 all_scripts = [
     os.path.join('scripts', os.path.splitext(script)[0]) for
     script in raw_scripts
