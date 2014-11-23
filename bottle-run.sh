@@ -11,7 +11,7 @@ fi
 
 # Will deal with this repetition later.
 
-if [ ! -d ~/.local/share/wineprefixes/$1 ]; then
+if [ ! -d "$HOME/.local/share/wineprefixes/$1" ]; then
     echo "$1 is not a bottle."
     echo Usage: bottle-run bottle command \[args\]
     echo E.g. bottle-run PvZ winecfg
