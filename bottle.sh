@@ -1,4 +1,4 @@
-mkbottle() {
+bottle() {
 
 	case $# in
 	1)
