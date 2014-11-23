@@ -37,8 +37,8 @@ function uncork {
 
 	case $# in
 	1)
-		if [ -f $HOME/.local/share/wineprefixes/$1/bin/uncork ]; then
-			source $HOME/.local/share/wineprefixes/$1/bin/uncork
+		if [ -f $HOME/.local/share/wineprefixes/$1/bin/uncorkrc ]; then
+			source $HOME/.local/share/wineprefixes/$1/bin/uncorkrc
 			cd $HOME/.local/share/wineprefixes/$1
 		else
 			echo Invalid prefix
