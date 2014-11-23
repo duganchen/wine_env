@@ -20,4 +20,5 @@ setup(
     version='1.0',
     py_modules=['wine_rc'],
     scripts=all_scripts,
+    data_files=[('bin', ['bottle.sh'])]
 )
