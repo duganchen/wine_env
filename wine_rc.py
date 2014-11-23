@@ -92,8 +92,9 @@ class UncorkRC(WineRC):
 
         io = StringIO()
 
-        io.write('if [ "$(type -t uncork)" = "function" ]; then\n')
-        io.write('\tuncork\n')
+        io.write('declare -f cork > /dev/null\n')
+        io.write('if [ $? = 0 ]; then\n')
+        io.write('\tcork\n')
         io.write('fi\n')
         io.write('\n')
         for key, value in env.iteritems():
@@ -102,9 +103,9 @@ class UncorkRC(WineRC):
 
         io.write('\n')
 
-        io.write('function uncork {\n')
+        io.write('function cork {\n')
         io.write('\n')
-        uncorker = os.path.join(self._prefix, 'corkrc')
+        uncorker = os.path.join(self._prefix, 'bin', 'corkrc')
         io.write('\t. {0}\n'.format(uncorker))
         io.write('\n')
 

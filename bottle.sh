@@ -4,7 +4,7 @@ function mkbottle {
 	1)
 		mkdir -p $HOME/.local/share/wineprefixes/$1/bin
 
-		mkopener $1 > $HOME/.local/share/wineprefixes/$1/bin/uncorkrc
+		mkuncorkrc $1 > $HOME/.local/share/wineprefixes/$1/bin/uncorkrc
 		mkcorkrc $1 > $HOME/.local/share/wineprefixes/$1/bin/corkrc
 		mkrunrc $1 > $HOME/.local/share/wineprefixes/$1/bin/runrc
 		source $HOME/.local/share/wineprefixes/$1/bin/uncorkrc
@@ -14,7 +14,7 @@ function mkbottle {
 		if [ -x $2 ]; then
 			mkdir -p $HOME/.local/share/wineprefixes/$1/bin
 
-			mkopener --wine $2 $1 > $HOME/.local/share/wineprefixes/$1/bin/uncorkrc
+			mkuncorkrc --wine $2 $1 > $HOME/.local/share/wineprefixes/$1/bin/uncorkrc
 			mkcorkrc --wine $2 $1 > $HOME/.local/share/wineprefixes/$1/bin/corkrc
 			mkrunrc --wine $2 $1 > $HOME/.local/share/wineprefixes/$1/bin/runrc
 			source $HOME/.local/share/wineprefixes/$1/bin/uncorkrc
