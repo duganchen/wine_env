@@ -1,7 +1,4 @@
-#!/usr/bin/env bash
-
-set -o posix
-set -e
+#!/bin/sh
 
 if [ "$#" -lt 2 ]; then
     echo Usage: bottle-run bottle command \[args\]
