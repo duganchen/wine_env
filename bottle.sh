@@ -6,7 +6,7 @@ function mkbottle {
 
 		mkopener $1 > $HOME/.local/share/wineprefixes/$1/bin/uncorkrc
 		mkcorkrc $1 > $HOME/.local/share/wineprefixes/$1/bin/corkrc
-		mkrunkrc $1 > $HOME/.local/share/wineprefixes/$1/bin/runrc
+		mkrunrc $1 > $HOME/.local/share/wineprefixes/$1/bin/runrc
 		source $HOME/.local/share/wineprefixes/$1/bin/uncorkrc
 		;;
 
@@ -16,7 +16,7 @@ function mkbottle {
 
 			mkopener --wine $2 $1 > $HOME/.local/share/wineprefixes/$1/bin/uncorkrc
 			mkcorkrc --wine $2 $1 > $HOME/.local/share/wineprefixes/$1/bin/corkrc
-			mkrunkrc --wine $2 $1 > $HOME/.local/share/wineprefixes/$1/bin/runrc
+			mkrunrc --wine $2 $1 > $HOME/.local/share/wineprefixes/$1/bin/runrc
 			source $HOME/.local/share/wineprefixes/$1/bin/uncorkrc
 
 		else
