@@ -42,34 +42,36 @@ class WineRC(object):
 
         self._bottle = bottle
 
-        self.__wine = wine_executable
-        if self.__wine:
-            self.__wine = os.path.expanduser(self.__wine)
+        self._wine = wine_executable
+        if self._wine:
+            self._wine = os.path.dirname(
+                os.path.dirname(os.path.expanduser(self._wine))
+            )
 
     def get_env(self):
 
         environment = {'WINEPREFIX': self._prefix}
 
-        if not self.__wine:
+        if not self._wine:
             return environment
 
-        wine_install_dir = os.path.dirname(os.path.dirname(self.__wine))
-        path = ':'.join([os.path.dirname(self.__wine), '$PATH'])
-        wine_server = os.path.join(wine_install_dir, 'bin', 'wineserver')
-        wine_loader = os.path.join(wine_install_dir, 'bin', 'wine')
-        wine_dll_path = os.path.join(
-            wine_install_dir, 'lib', 'wine', 'fakedlls')
-        ld_library_path = ':'.join(
-            [os.path.join(wine_install_dir, 'lib'), '$LD_LIBRARY_PATH']
+        path = '"{0}"'.format(':'.join([os.path.join('$W', 'bin'), '$PATH']))
+        wine_server = '"{0}"'.format(os.path.join('$W', 'bin', 'wineserver'))
+        wine_loader = '"{0}"'.format(os.path.join('$W', 'bin', 'wine'))
+        wine_dll_path = '"{0}"'.format(
+            os.path.join('$W', 'lib', 'wine', 'fakedlls')
+        )
+        ld_library_path = '"{0}"'.format(
+            ':'.join([os.path.join('$W', 'lib'), '$LD_LIBRARY_PATH'])
         )
 
-        environment['WINESERVERPATH'] = wine_install_dir
+        environment['WINESERVERPATH'] = '"{0}"'.format('$W')
         environment['PATH'] = path
         environment['WINESERVER'] = wine_server
         environment['WINELOADER'] = wine_loader
         environment['WINEDLLPATH'] = wine_dll_path
         environment['LD_LIBRARY_PATH'] = ld_library_path
-        environment['WINEPREFIX'] = self._prefix
+        environment['WINEPREFIX'] = '"{0}"'.format(self._prefix)
 
         return environment
 
@@ -79,6 +81,9 @@ class RunRC(WineRC):
     def get_rc(self):
         env = self.get_env()
         io = StringIO()
+        if self._wine:
+            io.write('W={}\n'.format(self._wine))
+            io.write('\n')
         for key, value in env.iteritems():
             io.write('export {0}={1}\n'.format(key, value))
         script = io.getvalue()
@@ -92,6 +97,10 @@ class UncorkRC(WineRC):
 
         io = StringIO()
 
+        if self._wine:
+            io.write('W={}\n'.format(self._wine))
+            io.write('\n')
+
         io.write('declare -f cork > /dev/null\n')
         io.write('if [ $? = 0 ]; then\n')
         io.write('\tcork\n')
@@ -99,7 +108,7 @@ class UncorkRC(WineRC):
         io.write('\n')
         for key, value in env.iteritems():
             io.write('_OLD_{0}="${0}"\n'.format(key))
-            io.write('export {0}="{1}"\n'.format(key, value))
+            io.write('export {0}={1}\n'.format(key, value))
 
         io.write('\n')
 
@@ -119,6 +128,7 @@ class UncorkRC(WineRC):
             io.write('\n')
 
         io.write('\tunset -f cork\n')
+        io.write('\tunset W\n')
 
         io.write('}\n')
 
