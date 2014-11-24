@@ -36,5 +36,7 @@ fi
 
 . "$HOME/.local/share/wineprefixes/$1/bin/runrc.sh"
 
-args=( $@ )
-$2 ${args[@]:2}
+# This works as long as you have at most 7 command-line parameters.
+# Let me know if there's a better solution (which works if the
+# parameters include paths with spaces).
+"$2" "$3" "$4" "$5" "$6" "7" "$8" "$9"
