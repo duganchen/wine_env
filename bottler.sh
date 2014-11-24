@@ -24,9 +24,9 @@ bottle() {
 		fi
 		;;
 	*)
-		echo mkbottle BottleName \[/path/to/wine\]
-		echo e.g. mkbottle PvZ
-		echo e.g. mkbottle PvZ ~/Software/wine-1.7.30/bin/wine
+		echo bottle BottleName \[/path/to/wine\]
+		echo e.g. bottle PvZ
+		echo e.g. bottle PvZ ~/Software/wine-1.7.30/bin/wine
 		;;
 
 	esac
