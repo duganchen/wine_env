@@ -115,10 +115,10 @@ class UncorkRC(WineRC):
         io.write('cork() {\n')
         io.write('\n')
         corker = os.path.join(self._prefix, 'bin', 'corkrc.sh')
-        io.write('\t. {0}\n'.format(corker))
+        io.write('\t. "{0}"\n'.format(corker))
         io.write('\n')
 
-        io.write('\tif [ "$_OLD_WD" = "" ]; then\n')
+        io.write('\tif [ "$_OLD_WD" != "" ]; then\n')
         io.write('\t\tcd "$_OLD_WD"\n')
         io.write('\tfi\n')
         io.write('\n')
@@ -132,9 +132,9 @@ class UncorkRC(WineRC):
             io.write('\tunset _OLD_{0}\n'.format(key))
             io.write('\n')
 
-        io.write('\tunset -f cork\n')
         io.write('\tunset W\n')
         io.write('\tunset -f goc\n')
+        io.write('\tunset -f cork\n')
 
         io.write('}\n')
 
@@ -142,7 +142,7 @@ class UncorkRC(WineRC):
         io.write('_OLD_PS1="$PS1"\n')
         io.write('PS1="({0})$PS1"\n'.format(self._bottle))
         io.write('_OLD_WD="$(pwd)"\n')
-        io.write('cd {0}\n'.format(self._prefix))
+        io.write('cd "{0}"\n'.format(self._prefix))
         io.write('\n')
         io.write('goc() {\n')
         io.write('\tcd "$WINEPREFIX/drive_c"\n')
