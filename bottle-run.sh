@@ -26,9 +26,11 @@ fi
 RUNRC="$HOME/.local/share/wineprefixes/$BOTTLE/bin/runrc.sh"
 
 if [ ! -f "$RUNRC" ];  then
-    echo "$RUNRC not found."
-    echo "Please use mkbottle to recreate the bottle."
-    exit 1
+	cat <<- EOF
+	Path not found: $RUNRC
+	Please use "bottle" to (re)create the bottle "$BOTTLE".
+	EOF
+	exit 1
 fi
 
 # If we already have an environment loaded, clear it out.
