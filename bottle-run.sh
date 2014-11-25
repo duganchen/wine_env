@@ -1,7 +1,7 @@
 #!/bin/sh
 
 
-if [ "$#" -lt 2 ]; then
+if [ $# -lt 2 ]; then
 	cat <<- EOF
 	Usage: bottle-run bottle command [args]
 	E.g. bottle-run PvZ winecfg
@@ -13,8 +13,9 @@ if [ "$#" -lt 2 ]; then
 fi
 
 BOTTLE=$1
+PREFIX="$HOME/.local/share/wineprefixes/$BOTTLE"
 
-if [ ! -d "$HOME/.local/share/wineprefixes/$BOTTLE" ]; then
+if [ ! -d "$PREFIX" ]; then
 	cat <<- EOF
 	Bottle "$BOTTLE" not found"
 	Run "lsp" to list bottles
@@ -23,7 +24,7 @@ if [ ! -d "$HOME/.local/share/wineprefixes/$BOTTLE" ]; then
 	exit 1
 fi
 
-RUNRC="$HOME/.local/share/wineprefixes/$BOTTLE/bin/runrc.sh"
+RUNRC="$PREFIX/bin/runrc.sh"
 
 if [ ! -f "$RUNRC" ];  then
 	cat <<- EOF
