@@ -9,7 +9,9 @@ Install it the way you would any Python application:
 
 	python setup.py install
 
-Then source /usr/bin/bottle.sh to activate it.
+Then do the following to activate it:
+
+	source /usr/bin/bottle.sh
 
 ## Usage
 
