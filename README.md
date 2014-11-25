@@ -106,5 +106,5 @@ simply use your system's default Wine:
 
 If you ever want a bottle to contain a different version of Wine, simple use
 *bottle* to create the bottle again. The only files touched will be the
-initiation files that wine_env's tools use when entering and existing the
+initiation files that wine_env's tools use when entering and exiting the
 bottle.
