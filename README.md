@@ -61,8 +61,9 @@ To exit the bottle environment and go back to your normal one, simply:
 
 	cork
 
-Your prompt will be back to normal, you'll be back in the directory you were
-once in, and the "wine" command will now invoke the one normally in your PATH.
+That will restore your environment. Your prompt will be back to normal,
+you'll be back in the directory you were once in, and the "wine" command
+will now invoke the one normally in your PATH.
 
 ### Listing Bottles
 
