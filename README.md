@@ -98,6 +98,8 @@ Steam, for example, do the following:
 	bottle PvZ ~/wine-1.7.31
 	winetricks --no-isolate steam
 
+That will install Steam into the PvZ bottle.
+
 ### Other Notes
 
 If you create a bottle without specifying a Wine executable, then it will
