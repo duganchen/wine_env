@@ -1,8 +1,7 @@
 # wine_env
 
 This is a command-line system to manage your installations of Wine and of
-Wine software. Note that Wine calls and isolated software installation
-(with its own C drive) a *bottle*.
+Wine software.
 
 ## Installation
 
@@ -25,6 +24,9 @@ Let's also say that you want to run the Diablo 3 installer, which you have
 downloaded as:
 
 	~/Downloads/Diablo-III-Setup-enUS.exe
+
+Finally, note that Wine calls an isolated software installation (with its
+own C drive and registry) a *bottle*.
 
 ### Creating A Bottle
 
