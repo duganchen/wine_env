@@ -16,7 +16,9 @@ Then source /usr/bin/bottle.sh to activate it.
 For the following example, let's say that you have Wine 1.7.31 installed as
 follows:
 
-	./configure --prefix=~/wine-1.7.31 make make install
+	./configure --prefix=~/wine-1.7.31
+	make
+	make install
 
 Let's also say that you want to run the Diablo 3 installer, which you have
 downloaded as:
