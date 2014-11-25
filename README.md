@@ -32,8 +32,8 @@ own C drive, registry and other settings) a *bottle*.
 
 ### Creating A Bottle
 
-Use *bottle* to create a Wine bottle named D3, and have it use your Wine 1.7.31
-build:
+For Diablo 3, use *bottle* to create a Wine bottle named D3, and have it
+use your Wine 1.7.31 build:
 
 	bottle D3 ~/wine-1.7.31/bin/wine
 
