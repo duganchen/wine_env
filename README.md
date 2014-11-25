@@ -37,8 +37,8 @@ use your Wine 1.7.31 build:
 
 	bottle D3 ~/wine-1.7.31/bin/wine
 
-Your prompt will now start with "(D3)", and your current directory to your new
-Wine bottle:
+Your prompt will now start with "(D3)", and your current directory will
+be changed to your new Wine bottle:
 
 	~/.local/share/wineprefixes/D3
 
