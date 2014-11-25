@@ -105,4 +105,6 @@ simply use your system's default Wine:
 	bottle winzip
 
 If you ever want a bottle to contain a different version of Wine, simple use
-*bottle* to create the bottle again. Only its initiation files will change.
+*bottle* to create the bottle again. The only files touched will be the
+initiation files that wine_env's tools use when entering and existing the
+bottle.
