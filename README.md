@@ -43,6 +43,10 @@ to your new Wine bottle:
 
 	~/.local/share/wineprefixes/D3
 
+Running *wine* or *winecfg* from inside that bottle will launch
+version 1.7.31 of either tool. The WINEPREFIX variable will be set
+so that they'll write to, and read from, the bottle directory.
+
 ### Installing Software
 
 Now you can install Diablo 3:
