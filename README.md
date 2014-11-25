@@ -1,7 +1,8 @@
 # wine_env
 
-This is a command-line system to manage your Wine installations and Wine
-bottles.
+This is a command-line system to manage your installations of Wine and of
+Wine software. Note that Wine calls and isolated software installation
+(with its own C drive) a *bottle*.
 
 ## Installation
 
