@@ -55,23 +55,23 @@ class WineRC(object):
         if not self._wine:
             return environment
 
-        path = '"{0}"'.format(':'.join([os.path.join('$W', 'bin'), '$PATH']))
-        wine_server = '"{0}"'.format(os.path.join('$W', 'bin', 'wineserver'))
-        wine_loader = '"{0}"'.format(os.path.join('$W', 'bin', 'wine'))
-        wine_dll_path = '"{0}"'.format(
+        path = '"{}"'.format(':'.join([os.path.join('$W', 'bin'), '$PATH']))
+        wine_server = '"{}"'.format(os.path.join('$W', 'bin', 'wineserver'))
+        wine_loader = '"{}"'.format(os.path.join('$W', 'bin', 'wine'))
+        wine_dll_path = '"{}"'.format(
             os.path.join('$W', 'lib', 'wine', 'fakedlls')
         )
-        ld_library_path = '"{0}"'.format(
+        ld_library_path = '"{}"'.format(
             ':'.join([os.path.join('$W', 'lib'), '$LD_LIBRARY_PATH'])
         )
 
-        environment['WINESERVERPATH'] = '"{0}"'.format('$W')
+        environment['WINESERVERPATH'] = '"{}"'.format('$W')
         environment['PATH'] = path
         environment['WINESERVER'] = wine_server
         environment['WINELOADER'] = wine_loader
         environment['WINEDLLPATH'] = wine_dll_path
         environment['LD_LIBRARY_PATH'] = ld_library_path
-        environment['WINEPREFIX'] = '"{0}"'.format(self._prefix)
+        environment['WINEPREFIX'] = '"{}"'.format(self._prefix)
 
         return environment
 
@@ -85,7 +85,8 @@ class RunRC(WineRC):
             io.write('W={}\n'.format(self._wine))
             io.write('\n')
         for key, value in env.iteritems():
-            io.write('export {0}={1}\n'.format(key, value))
+            io.write('{}={}\n'.format(key, value))
+            io.write('export {}\n'.format(key))
         script = io.getvalue()
         return script
 
@@ -101,21 +102,21 @@ class UncorkRC(WineRC):
             io.write('W={}\n'.format(self._wine))
             io.write('\n')
 
-        io.write('declare -f cork > /dev/null\n')
-        io.write('if [ $? = 0 ]; then\n')
+        io.write('if which cork > /dev/null; then\n')
         io.write('\tcork\n')
         io.write('fi\n')
         io.write('\n')
         for key, value in env.iteritems():
-            io.write('_OLD_{0}="${0}"\n'.format(key))
-            io.write('export {0}={1}\n'.format(key, value))
+            io.write('_OLD_{}="${}"\n'.format(key, key))
+            io.write('{}={}\n'.format(key, value))
+            io.write('export {}\n'.format(key))
 
         io.write('\n')
 
         io.write('cork() {\n')
         io.write('\n')
         corker = os.path.join(self._prefix, 'bin', 'corkrc.sh')
-        io.write('\t. "{0}"\n'.format(corker))
+        io.write('\t. "{}"\n'.format(corker))
         io.write('\n')
 
         io.write('\tif [ "$_OLD_WD" != "" ]; then\n')
@@ -124,12 +125,13 @@ class UncorkRC(WineRC):
         io.write('\n')
 
         for key in ('PS1', 'WD'):
-            io.write('\tif [ "$_OLD_{0}" = "" ]; then\n'.format(key))
-            io.write('\t\tunset {0}\n'.format(key))
+            io.write('\tif [ "$_OLD_{}" = "" ]; then\n'.format(key))
+            io.write('\t\tunset {}\n'.format(key))
             io.write('\telse\n')
-            io.write('\t\texport {0}="$_OLD_{1}"\n'.format(key, key))
+            io.write('\t{}="$_OLD_{}"\n'.format(key, key))
+            io.write('\texport {}\n'.format(key))
             io.write('\tfi\n')
-            io.write('\tunset _OLD_{0}\n'.format(key))
+            io.write('\tunset _OLD_{}\n'.format(key))
             io.write('\n')
 
         io.write('\tunset W\n')
@@ -140,9 +142,9 @@ class UncorkRC(WineRC):
 
         io.write('\n')
         io.write('_OLD_PS1="$PS1"\n')
-        io.write('PS1="({0})$PS1"\n'.format(self._bottle))
+        io.write('PS1="({})$PS1"\n'.format(self._bottle))
         io.write('_OLD_WD="$(pwd)"\n')
-        io.write('cd "{0}"\n'.format(self._prefix))
+        io.write('cd "{}"\n'.format(self._prefix))
         io.write('\n')
         io.write('goc() {\n')
         io.write('\tcd "$WINEPREFIX/drive_c"\n')
@@ -158,12 +160,13 @@ class CorkRC(WineRC):
         io = StringIO()
 
         for key in env.keys():
-            io.write('if [ "$_OLD_{0}" = "" ]; then\n'.format(key))
-            io.write('\tunset {0}\n'.format(key))
+            io.write('if [ "$_OLD_{}" = "" ]; then\n'.format(key))
+            io.write('\tunset {}\n'.format(key))
             io.write('else\n')
-            io.write('\texport {0}="$_OLD_{1}"\n'.format(key, key))
+            io.write('\t{}="$_OLD_{}"\n'.format(key, key))
+            io.write('\texport {}\n'.format(key))
             io.write('fi\n')
-            io.write('unset _OLD_{0}\n'.format(key))
+            io.write('unset _OLD_{}\n'.format(key))
             io.write('\n')
 
         return io.getvalue()
