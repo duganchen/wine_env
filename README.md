@@ -28,7 +28,7 @@ downloaded as:
 	~/Downloads/Diablo-III-Setup-enUS.exe
 
 Finally, note that Wine calls an isolated software installation (with its
-own C drive, registry and other settings) a *bottle*.
+own C drive, registry and DLL overrides) a *bottle*.
 
 ### Creating A Bottle
 
