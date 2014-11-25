@@ -18,7 +18,7 @@ Then do the following to activate it:
 For the following example, let's say that you have Wine 1.7.31 installed as
 follows:
 
-	./configure --prefix=~/wine-1.7.31
+	./configure --prefix=$HOME/wine-1.7.31
 	make
 	make install
 
