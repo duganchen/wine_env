@@ -53,5 +53,17 @@ uncork() {
 
 
 lsp() {
-	ls $* "$HOME/.local/share/wineprefixes"
+	ls $* $HOME/.local/share/wineprefixes
 }
+
+
+_bottles() {
+	if [ -d "$HOME/.local/share/wineprefixes" ]; then
+		COMPREPLY=$( compgen -W "$( find $HOME/.local/share/wineprefixes -type d -mindepth 1 -maxdepth 1 -exec basename {} \; )" )
+	fi
+}
+
+
+if [ -n "$BASH" ]; then
+	complete -F _bottles uncork
+fi
