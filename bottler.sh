@@ -57,15 +57,24 @@ lsp() {
 }
 
 
-_bottle_completion() {
+_bottles() {
+	find $HOME/.local/share/wineprefixes -type d -mindepth 1 -maxdepth 1 -exec basename {} \;
+}
+
+_bash_completion() {
 	COMPREPLY=()
 	if [ $COMP_CWORD = 1 ]; then
-		COMPREPLY=( $( compgen -W "$( find $HOME/.local/share/wineprefixes -type d -mindepth 1 -maxdepth 1 -exec basename {} \; )" -- "${COMP_WORDS[COMP_CWORD]}" ) )
+		COMPREPLY=( $( compgen -W "$( bottles )" -- "${COMP_WORDS[COMP_CWORD]}" ) )
 	fi
+}
+
+_zsh_completion() {
+	reply=()
+	echo $#
 }
 
 
 if [ -n "$BASH" ]; then
-	complete -F _bottle_completion uncork
-	complete -F _bottle_completion bottle-run
+	complete -F _bash_completion uncork
+	complete -F _bash_completion bottle-run
 fi
