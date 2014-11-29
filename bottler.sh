@@ -58,8 +58,9 @@ lsp() {
 
 
 _bottles() {
+	COMPREPLY=()
 	if [ -d "$HOME/.local/share/wineprefixes" ]; then
-		COMPREPLY=$( compgen -W "$( find $HOME/.local/share/wineprefixes -type d -mindepth 1 -maxdepth 1 -exec basename {} \; )" )
+		COMPREPLY=( $( compgen -W "$( find $HOME/.local/share/wineprefixes -type d -mindepth 1 -maxdepth 1 -exec basename {} \; )" -- "${COMP_WORDS[COMP_CWORD]}"))
 	fi
 }
 
