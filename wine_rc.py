@@ -102,7 +102,7 @@ class UncorkRC(WineRC):
             io.write('W={}\n'.format(self._wine))
             io.write('\n')
 
-        io.write('if type cork > /dev/null; then\n')
+        io.write('if type cork &> /dev/null; then\n')
         io.write('\tcork\n')
         io.write('fi\n')
         io.write('\n')
