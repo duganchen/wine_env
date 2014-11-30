@@ -95,6 +95,27 @@ Diablo 3's launch command is particulary hairy, but supported:
 
 	setarch i386 -3 bottle-run D3 wine ~/.local/share/wineprefixes/D3/drive_c/Program\ Files/Diablo\ III/Diablo\ III.exe
 
+### Editing Launchers
+
+Wine, as normal part of software installation, installs menu items and desktop
+icons. These need to be edited to use bottle-run.
+
+For example, Diablo 3 installs the following desktop entry:
+
+	$HOME/.local/share/applications/wine/Programs/Diablo\ III/Diablo\ III.desktop
+
+It contains the following line:
+
+	Exec=env WINEPREFIX="/home/dugan/.local/share/wineprefixes/D3" wine C:\\\\windows\\\\command\\\\start.exe /Unix /home/dugan/.local/share/wineprefixes/D3/dosdevices/c:/users/Public/Start\\ Menu/Programs/Diablo\\ III/Diablo\\ III.lnk
+
+Change the parts before "wine" so that it launches Diablo 3 in the D3 bottle:
+
+	Exec=setarch i386 -3 bottle-run D3 wine C:\\\\windows\\\\command\\\\start.exe /Unix /home/dugan/.local/share/wineprefixes/D3/dosdevices/c:/users/Public/Start\\ Menu/Programs/Diablo\\ III/Diablo\\ III.lnk
+
+The restart your desktop environment (log out and back in) so that it rereads the entry.
+
+If there's a launcher on the desktop, you can edit it in the same way.
+
 ### Running Winetricks
 
 To run Winetricks, I recommend passing it the --no-isolate flag from an
