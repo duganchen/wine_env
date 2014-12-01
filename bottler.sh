@@ -68,12 +68,6 @@ _bash_completion() {
 	fi
 }
 
-_zsh_completion() {
-	reply=()
-	echo $#
-}
-
-
 if [ -n "$BASH" ]; then
 	complete -F _bash_completion uncork
 	complete -F _bash_completion bottle-run
