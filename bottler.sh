@@ -53,12 +53,12 @@ uncork() {
 
 
 lsp() {
-	ls $* $HOME/.local/share/wineprefixes
+	ls $* "$HOME/.local/share/wineprefixes"
 }
 
 
 _bottles() {
-	find $HOME/.local/share/wineprefixes -type d -mindepth 1 -maxdepth 1 -exec basename {} \;
+	find "$HOME/.local/share/wineprefixes" -type d -mindepth 1 -maxdepth 1 -exec basename {} \;
 }
 
 _bash_completion() {
