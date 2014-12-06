@@ -35,7 +35,7 @@ if [ ! -f "$RUNRC" ];  then
 fi
 
 # If we already have an environment loaded, clear it out.
-if [ "$WINEPREFIX" != "" ] &&  [ -f "$WINEPREFIX/bin/uncorkrc.sh" ]; then
+if [ -n "$WINEPREFIX" -a -f "$WINEPREFIX/bin/uncorkrc.sh" ]; then
     . "$WINEPREFIX/bin/uncorkrc.sh"
 fi
 
