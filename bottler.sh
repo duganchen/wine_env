@@ -58,7 +58,9 @@ lsp() {
 
 
 _bottles() {
-	find "$HOME/.local/share/wineprefixes" -type d -mindepth 1 -maxdepth 1 -exec basename {} \;
+	for prefix in "$HOME"/.local/share/wineprefixes/*/; do
+		basename "$prefix"
+	done
 }
 
 _bash_completion() {
