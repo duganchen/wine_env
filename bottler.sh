@@ -70,7 +70,21 @@ _bash_completion() {
 	fi
 }
 
+_zsh_completion() {
+	if (( CURRENT == 2 )); then
+		compadd $( _bottles )
+	fi
+	return 0
+}
+
 if [ -n "$BASH" ]; then
 	complete -F _bash_completion uncork
 	complete -F _bash_completion bottle-run
 fi
+
+if [ -n "$ZSH" ]; then
+	compdef _zsh_completion uncork
+	compdef _zsh_completion bottle-run
+fi
+
+
