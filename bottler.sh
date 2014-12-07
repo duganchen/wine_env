@@ -1,7 +1,7 @@
 bottle() {
 
 	case $# in
-	1)
+	(1)
 		mkdir -p "$HOME/.local/share/wineprefixes/$1/bin"
 
 		mkuncorkrc "$1" > "$HOME/.local/share/wineprefixes/$1/bin/uncorkrc.sh"
@@ -10,7 +10,7 @@ bottle() {
 		. "$HOME/.local/share/wineprefixes/$1/bin/uncorkrc.sh"
 		;;
 
-	2)
+	(2)
 		if [ -x $2 ]; then
 			mkdir -p "$HOME/.local/share/wineprefixes/$1/bin"
 
@@ -36,14 +36,14 @@ bottle() {
 uncork() {
 
 	case $# in
-	1)
+	(1)
 		if [ -f "$HOME/.local/share/wineprefixes/$1/bin/uncorkrc.sh" ]; then
 			. "$HOME/.local/share/wineprefixes/$1/bin/uncorkrc.sh"
 		else
 			echo Invalid prefix
 		fi
 		;;
-	*)
+	(*)
 		echo uncork BottleName
 		echo e.g. uncork PvZ
 		;;
@@ -66,7 +66,7 @@ _bottles() {
 _bash_completion() {
 	COMPREPLY=()
 	if [ $COMP_CWORD = 1 ]; then
-		COMPREPLY=( $( compgen -W "$( bottles )" -- "${COMP_WORDS[COMP_CWORD]}" ) )
+		COMPREPLY=( $( compgen -W "$( _bottles )" -- "${COMP_WORDS[COMP_CWORD]}" ) )
 	fi
 }
 
