@@ -23,7 +23,7 @@ bottle() {
 			echo /path/to/wine must be the path to a Wine execuable
 		fi
 		;;
-	*)
+	(*)
 		echo bottle BottleName \[/path/to/wine\]
 		echo e.g. bottle PvZ
 		echo e.g. bottle PvZ ~/Software/wine-1.7.30/bin/wine
@@ -57,34 +57,6 @@ lsp() {
 }
 
 
-_bottles() {
-	for prefix in "$HOME"/.local/share/wineprefixes/*/; do
-		basename "$prefix"
-	done
-}
-
-_bash_completion() {
-	COMPREPLY=()
-	if [ $COMP_CWORD = 1 ]; then
-		COMPREPLY=( $( compgen -W "$( _bottles )" -- "${COMP_WORDS[COMP_CWORD]}" ) )
-	fi
-}
-
-_zsh_completion() {
-	if (( CURRENT == 2 )); then
-		compadd $( _bottles )
-	fi
-	return 0
-}
-
-if [ -n "$BASH" ]; then
-	complete -F _bash_completion uncork
-	complete -F _bash_completion bottle-run
+if [ -n "$BASH" -o -n "$ZSH" ]; then
+	. "$( dirname $( realpath $0 ) )/wine_env_complete.sh"
 fi
-
-if [ -n "$ZSH" ]; then
-	compdef _zsh_completion uncork
-	compdef _zsh_completion bottle-run
-fi
-
-
