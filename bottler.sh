@@ -57,6 +57,8 @@ lsp() {
 }
 
 
-if [ -n "$BASH" -o -n "$ZSH" ]; then
-	. "$( dirname $( realpath $0 ) )/wine_env_complete.sh"
+if [ -n "$BASH" ]; then
+	. "$( dirname $( realpath "${BASH_SOURCE[0]}" ) )/wine_env_complete.sh"
+elif [ -n "$ZSH" ]; then
+	. "$( dirname $( realpath "$0" ) )/wine_env_complete.sh"
 fi
