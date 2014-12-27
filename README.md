@@ -37,8 +37,8 @@ which will use your Wine 1.7.31 build:
 
 	bottle D3 ~/wine-1.7.31/bin/wine
 
-Creating a bottle automatically puts you in that bottle. Your prompt
-will now start with "(D3)", and your current directory will be changed
+Creating a bottle automatically puts you in that *bottle environment*. Your
+prompt will now start with "(D3)", and your current directory will be changed
 to your new Wine bottle:
 
 	~/.local/share/wineprefixes/D3
@@ -138,3 +138,5 @@ If you ever want a bottle to contain a different version of Wine, simple use
 *bottle* to create the bottle again. The only files touched will be the
 initialization files that wine_env's tools use when entering and exiting the
 bottle.
+
+Please regenerate your bottles whenever you upgrade wine_env.
