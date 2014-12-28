@@ -20,5 +20,6 @@ setup(
     version='1.0',
     py_modules=['wine_rc'],
     scripts=all_scripts,
-    data_files=[('bin', ['bottler.sh', 'wine_env_complete.sh'])]
+    data_files=[('bin', ['bottler.sh', 'wine_env_complete.sh'])],
+    packages=['wine_env_powerline']
 )

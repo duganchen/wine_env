@@ -26,9 +26,11 @@ _zsh_completion() {
 if [[ -n "$BASH" ]]; then
 	complete -F _bash_completion uncork
 	complete -F _bash_completion bottle-run
+	complete -F _bash_completion bottle
 fi
 
 if [[ -n "$ZSH" ]]; then
 	compdef _zsh_completion uncork
 	compdef _zsh_completion bottle-run
+	compdef _zsh_completion bottle
 fi

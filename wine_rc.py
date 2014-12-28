@@ -111,6 +111,8 @@ class UncorkRC(WineRC):
             io.write('{}={}\n'.format(key, value))
             io.write('export {}\n'.format(key))
 
+        io.write('BOTTLE="{}"\n'.format(self._bottle))
+        io.write('export BOTTLE\n')
         io.write('\n')
 
         io.write('cork() {\n')
@@ -141,6 +143,7 @@ class UncorkRC(WineRC):
         io.write('\n')
 
         io.write('\tunset W\n')
+        io.write('\tunset BOTTLE\n')
         io.write('\tunset -f goc\n')
         io.write('\tunset -f cork\n')
 
@@ -176,6 +179,7 @@ class CorkRC(WineRC):
             io.write('\texport {}\n'.format(key))
             io.write('fi\n')
             io.write('unset _OLD_{}\n'.format(key))
+            io.write('unset BOTTLE\n')
             io.write('\n')
 
         return io.getvalue()
