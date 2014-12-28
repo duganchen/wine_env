@@ -13,6 +13,10 @@ Then do the following to activate it:
 
 	source /usr/bin/bottle.sh
 
+If you're using bash or zsh, then also activate autocompletion:
+
+	source /usr/bin/wine_env_complete.sh
+
 ## Usage
 
 For the following example, let's say that you have Wine 1.7.31 installed as
