@@ -144,3 +144,11 @@ initialization files that wine_env's tools use when entering and exiting the
 bottle.
 
 Please regenerate your bottles whenever you upgrade wine_env.
+
+If you don't want wine_env to modify the prompt, then do the following:
+
+    export WINE_ENV_DISABLE_PROMPT=1
+
+[Powerline](https://github.com/powerline/powerline) users can use my
+[wine_env_powerline](https://github.com/duganchen/wine_env_powerline) project to integrate wine_env with Powerline.
+
