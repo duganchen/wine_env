@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
-from wine_rc import Main, RunRC
+from wine_env.wine_rc import Main, UncorkRC
 
 
 def main():
 
-    main = Main(RunRC)
+    main = Main(UncorkRC)
     main.main()
 
 if __name__ == '__main__':

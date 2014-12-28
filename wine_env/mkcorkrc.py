@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from wine_rc import Main, CorkRC
+from wine_env.wine_rc import Main, CorkRC
 
 
 def main():
