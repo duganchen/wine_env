@@ -3,10 +3,6 @@
 This is a command-line system to manage your installations of Wine and of
 Wine software.
 
-It's for shells with Bourne Shell syntax: bash, zsh, dash and ash.
-Users of the fish shell can use [wine_env_fish](https://github.com/duganchen/wine_env_fish)
-instead.
-
 ## Installation
 
 Install it the way you would any Python application:
@@ -156,3 +152,6 @@ If you don't want wine_env to modify the prompt, then do the following:
 [Powerline](https://github.com/powerline/powerline) users can use my
 [wine_env_powerline](https://github.com/duganchen/wine_env_powerline) project to integrate wine_env with Powerline.
 
+This project is for shells with Bourne Shell syntax: bash, zsh, dash and ash.
+Users of the fish shell can use [wine_env_fish](https://github.com/duganchen/wine_env_fish)
+instead.
