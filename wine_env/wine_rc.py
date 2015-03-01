@@ -133,12 +133,9 @@ class UncorkRC(WineRC):
         io.write('\n')
 
         io.write('\tif [ -z "$_OLD_WD" ]; then\n')
-        io.write('\t\tunset WD\n')
-        io.write('\telse\n')
-        io.write('\t\tWD="$_OLD_WD"\n')
-        io.write('\t\texport WD\n')
+        io.write('\t\tcd _OLD_WD\n')
+        io.write('\t\tunset _OLD_WD\n')
         io.write('\tfi\n')
-        io.write('\tunset _OLD_WD\n')
         io.write('\n')
 
         io.write('\tunset W\n')
@@ -149,10 +146,18 @@ class UncorkRC(WineRC):
         io.write('}\n')
         io.write('\n')
 
-        for key, value in env.iteritems():
-            io.write('_OLD_{}="${}"\n'.format(key, key))
-            io.write('{}={}\n'.format(key, value))
-            io.write('export {}\n'.format(key))
+        env = self.get_env()
+        for key in self.get_all_keys():
+            io.write('if [ -n "${}"]; then\n'.format(key))
+            io.write('\tif [ -z "$_OLD_{}" ]\n'.format(key))
+            io.write('\t\t_OLD_{}="${}"\n'.format(key, key))
+            io.write('\t\texport _OLD_{}\n'.format(key))
+            io.write('\tfi\n')
+            io.write('fi\n')
+
+            if key in env:
+                io.write('{}={}\n'.format(key, env[key]))
+                io.write('export {}\n'.format(key))
 
         io.write('BOTTLE="{}"\n'.format(self._bottle))
         io.write('export BOTTLE\n')
