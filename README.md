@@ -3,6 +3,10 @@
 This is a command-line system to manage your installations of Wine and of
 Wine software.
 
+It's for shells with Bourne Shell syntax: bash, zsh, dash and ash.
+Users of the fish shell can use [wine_env_fish](https://github.com/duganchen/wine_env_fish)
+instead.
+
 ## Installation
 
 Install it the way you would any Python application:
