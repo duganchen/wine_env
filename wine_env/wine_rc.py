@@ -113,14 +113,6 @@ class UncorkRC(WineRC):
         io.write('\tcork\n')
         io.write('fi\n')
         io.write('\n')
-        for key, value in env.iteritems():
-            io.write('_OLD_{}="${}"\n'.format(key, key))
-            io.write('{}={}\n'.format(key, value))
-            io.write('export {}\n'.format(key))
-
-        io.write('BOTTLE="{}"\n'.format(self._bottle))
-        io.write('export BOTTLE\n')
-        io.write('\n')
 
         io.write('cork() {\n')
         io.write('\n')
@@ -155,6 +147,15 @@ class UncorkRC(WineRC):
         io.write('\tunset -f cork\n')
 
         io.write('}\n')
+        io.write('\n')
+
+        for key, value in env.iteritems():
+            io.write('_OLD_{}="${}"\n'.format(key, key))
+            io.write('{}={}\n'.format(key, value))
+            io.write('export {}\n'.format(key))
+
+        io.write('BOTTLE="{}"\n'.format(self._bottle))
+        io.write('export BOTTLE\n')
 
         io.write('\n')
         io.write('if [ -z "$WINE_ENV_DISABLE_PROMPT" ]; then\n')
