@@ -75,6 +75,13 @@ class WineRC(object):
 
         return environment
 
+    @staticmethod
+    def get_all_keys():
+        return (
+            'WINESERVERPATH', 'PATH', 'WINESERVER', 'WINELOADER',
+            'WINEDLLPATH', 'LD_LIBRARY_PATH', 'WINEPREFIX'
+        )
+
 
 class RunRC(WineRC):
 
