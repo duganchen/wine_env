@@ -188,7 +188,7 @@ class CorkRC(WineRC):
             io.write('if [ -n "_OLD_{}" ]; then\n')
             io.write('\t{}="$_OLD_{}"\n'.format(key, key))
             io.write('\texport {}\n'.format(key))
-            io.write('\tunset _OLD_{}'.format(key))
+            io.write('\tunset _OLD_{}\n'.format(key))
             if key != 'PATH':
                 io.write('else\n')
                 io.write('\tunset {}\n'.format(key))
