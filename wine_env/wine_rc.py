@@ -148,7 +148,7 @@ class UncorkRC(WineRC):
 
         env = self.get_env()
         for key in self.get_all_keys():
-            io.write('if [ -n "${}"]; then\n'.format(key))
+            io.write('if [ -n "${}" ]; then\n'.format(key))
             io.write('\tif [ -z "$_OLD_{}" ]; then\n'.format(key))
             io.write('\t\t_OLD_{}="${}"\n'.format(key, key))
             io.write('\t\texport _OLD_{}\n'.format(key))
@@ -159,9 +159,10 @@ class UncorkRC(WineRC):
                 io.write('{}={}\n'.format(key, env[key]))
                 io.write('export {}\n'.format(key))
 
+            io.write('\n')
+
         io.write('BOTTLE="{}"\n'.format(self._bottle))
         io.write('export BOTTLE\n')
-
         io.write('\n')
         io.write('if [ -z "$WINE_ENV_DISABLE_PROMPT" ]; then\n')
         io.write('\t_OLD_PS1="$PS1"\n')
