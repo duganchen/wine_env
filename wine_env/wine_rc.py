@@ -133,7 +133,7 @@ class UncorkRC(WineRC):
         io.write('\n')
 
         io.write('\tif [ -z "$_OLD_WD" ]; then\n')
-        io.write('\t\tcd _OLD_WD\n')
+        io.write('\t\tcd $_OLD_WD\n')
         io.write('\t\tunset _OLD_WD\n')
         io.write('\tfi\n')
         io.write('\n')
@@ -149,7 +149,7 @@ class UncorkRC(WineRC):
         env = self.get_env()
         for key in self.get_all_keys():
             io.write('if [ -n "${}"]; then\n'.format(key))
-            io.write('\tif [ -z "$_OLD_{}" ]\n'.format(key))
+            io.write('\tif [ -z "$_OLD_{}" ]; then\n'.format(key))
             io.write('\t\t_OLD_{}="${}"\n'.format(key, key))
             io.write('\t\texport _OLD_{}\n'.format(key))
             io.write('\tfi\n')
