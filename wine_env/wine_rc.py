@@ -180,19 +180,18 @@ class UncorkRC(WineRC):
 class CorkRC(WineRC):
 
     def get_rc(self):
-        env = self.get_env()
 
         io = StringIO()
 
-        for key in env.keys():
-            io.write('if [ -z "$_OLD_{}" ]; then\n'.format(key))
-            io.write('\tunset {}\n'.format(key))
-            io.write('else\n')
+        for key in self.get_all_keys():
+            io.write('if [ -n "_OLD_{}" ]; then\n')
             io.write('\t{}="$_OLD_{}"\n'.format(key, key))
             io.write('\texport {}\n'.format(key))
+            io.write('\tunset _OLD_{}'.format(key))
+            if key != 'PATH':
+                io.write('else\n')
+                io.write('\tunset {}\n'.format(key))
             io.write('fi\n')
-            io.write('unset _OLD_{}\n'.format(key))
-            io.write('unset BOTTLE\n')
             io.write('\n')
 
         return io.getvalue()
