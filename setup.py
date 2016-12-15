@@ -16,5 +16,5 @@ setup(
     },
     scripts=('bottle-run',),
     data_files=[
-        ('/usr/bin', ['bottler.sh', 'wine_env_complete.sh'])]
+        ('bin', ['bottler.sh', 'wine_env_complete.sh'])]
 )
