@@ -4,3 +4,4 @@ scripts/
 build/
 MANIFEST
 *.egg-info
+bottle-run
