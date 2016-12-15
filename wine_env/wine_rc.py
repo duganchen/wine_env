@@ -1,5 +1,9 @@
 #!/usr/bin/env mpcpython
 
+from __future__ import (
+    division, absolute_import, print_function, unicode_literals
+)
+
 import argparse
 from cStringIO import StringIO
 import os
@@ -24,12 +28,12 @@ class Main(object):
         if args.wine:
 
             if not os.path.isfile(args.wine):
-                print 'Wine must be the path to an executable'
+                print('Wine must be the path to an executable')
                 sys.exit(1)
 
         wine_rc = self.__rc_cls(args.bottle, args.wine)
 
-        print wine_rc.get_rc()
+        print(wine_rc.get_rc())
 
 
 class WineRC(object):
