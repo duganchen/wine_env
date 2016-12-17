@@ -65,3 +65,14 @@ uncork() {
 lsp() {
 	ls $* "$HOME/.local/share/wineprefixes"
 }
+
+
+# Used by the autocompletion scripts.
+_bottles() {
+	for prefix in "$HOME"/.local/share/wineprefixes/*/; do
+		if [[ -f "$prefix/bin/uncorkrc.sh" ]]; then
+			basename "$prefix"
+		fi
+	done
+}
+

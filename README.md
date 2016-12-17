@@ -13,9 +13,13 @@ Then do the following to activate it:
 
 	source /usr/bin/bottle.sh
 
-If you're using bash or zsh, then also activate autocompletion:
+If you're using BASH, then also activate autocompletion for BASH:
 
 	source /usr/bin/wine_env_complete.sh
+
+And if you're using ZSH, then activate autocompletion for ZSH:
+
+	source /usr/bin/wine_env_complete.zsh
 
 ## Usage
 
@@ -65,7 +69,7 @@ To exit the bottle environment and go back to your normal one, simply:
 
 	cork
 
-That will restore your environment. Your prompt will be back to normal,
+That will restore your environment. Your prompt will return to normal,
 you'll be back in the directory you were once in, and the "wine" command
 will now invoke the one normally in your PATH. WINEPREFIX will be
 restored or cleared, as appropriate.
@@ -94,8 +98,9 @@ This is another one recommended by Winetricks.
 
 ### Making A Launcher
 
-If you want to add software to a menu, use *bottle-run*. On a 64-bit system,
-Diablo 3's launch command is particulary hairy, but supported:
+If you want to add software to a menu, have the launcher invoke
+*bottle-run*. On a 64-bit system, Diablo 3's launch command is
+particulary hairy, but supported:
 
 	setarch i386 -3 bottle-run D3 wine ~/.local/share/wineprefixes/D3/drive_c/Program\ Files/Diablo\ III/Diablo\ III.exe
 
@@ -145,13 +150,18 @@ bottle.
 
 Please regenerate your bottles whenever you upgrade wine_env.
 
+To delete bottles, simply delete them from the following directory:
+
+	~/.local/share/wineprefixes.
+
 If you don't want wine_env to modify the prompt, then do the following:
 
     export WINE_ENV_DISABLE_PROMPT=1
 
 [Powerline](https://github.com/powerline/powerline) users can use my
-[wine_env_powerline](https://github.com/duganchen/wine_env_powerline) project to integrate wine_env with Powerline.
+[wine_env_powerline](https://github.com/duganchen/wine_env_powerline) project
+to integrate wine_env with Powerline.
 
-This project is for shells with Bourne Shell syntax: bash, zsh, dash and ash.
+This project is for shells with Bourne Shell syntax: BASH, ZSH, dash and ash.
 Users of the fish shell can use [wine_env_fish](https://github.com/duganchen/wine_env_fish)
 instead.
