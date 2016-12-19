@@ -15,6 +15,10 @@ function bottle
 				mkcorkrc_fish $argv[1] > $HOME/.local/share/wineprefixes/$argv[1]/bin/corkrc.fish
 				mkrunrc_fish $argv[1] > $HOME/.local/share/wineprefixes/$argv[1]/bin/runrc.fish
 				source $HOME/.local/share/wineprefixes/$argv[1]/bin/uncorkrc.fish
+
+				mkuncorkrc $argv[1] > $HOME/.local/share/wineprefixes/$argv[1]/bin/uncorkrc.sh
+				mkcorkrc $argv[1] > $HOME/.local/share/wineprefixes/$argv[1]/bin/corkrc.sh
+				mkrunrc $argv[1] > $HOME/.local/share/wineprefixes/$argv[1]/bin/runrc.sh
 			else
 				_bottler_help
 			end
@@ -27,6 +31,10 @@ function bottle
 					mkcorkrc_fish --wine $argv[2] $argv[1] > $HOME/.local/share/wineprefixes/$argv[1]/bin/corkrc.fish
 					mkrunrc_fish --wine $argv[2] $argv[1] > $HOME/.local/share/wineprefixes/$argv[1]/bin/runrc.fish
 					source $HOME/.local/share/wineprefixes/$argv[1]/bin/uncorkrc.fish
+					
+					mkuncorkrc --wine $argv[2] $argv[1] > $HOME/.local/share/wineprefixes/$argv[1]/bin/uncorkrc.sh
+					mkcorkrc --wine $argv[2] $argv[1] > $HOME/.local/share/wineprefixes/$argv[1]/bin/corkrc.sh
+					mkrunrc --wine $argv[2] $argv[1] > $HOME/.local/share/wineprefixes/$argv[1]/bin/runrc.sh
 				end
 			else
 				_bottler_help
