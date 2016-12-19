@@ -200,3 +200,87 @@ class CorkRC(WineRC):
             io.write('\n')
 
         return io.getvalue()
+    
+class RunRCFish(WineRC):
+
+    def get_rc(self):
+        env = self.get_env()
+        io = StringIO()
+        if self._wine:
+            io.write('set W {}\n'.format(self._wine))
+            io.write('\n')
+        for key, value in env.iteritems():
+            io.write('set -gx {} {}\n'.format(key, value))
+        script = io.getvalue()
+        return script
+
+
+class UncorkRCFish(WineRC):
+
+    def get_rc(self):
+
+        io = StringIO()
+
+        if self._wine:
+            io.write('set W {}\n'.format(self._wine))
+            io.write('\n')
+
+        io.write('if functions -q cork\n')
+        io.write('\tcork\n')
+        io.write('end\n')
+        io.write('\n')
+        io.write('function cork\n')
+        corker = os.path.join(self._prefix, 'bin', 'corkrc.fish')
+        io.write('\tsource {}\n'.format(corker))
+        io.write('\tcd "$_OLD_PWD"\n')
+        io.write('\t\tset -e _OLD_PWD\n')
+        io.write('\tif set -q W')
+        io.write('\t\tset -e W\n')
+        io.write('\tend\n')
+        io.write('\tif set -q BOTTLE\n')
+        io.write('\t\tset -e BOTTLE\n')
+        io.write('\tend\n')
+        io.write('\tfunctions -e goc\n')
+        io.write('\tfunctions -e cork\n')
+        io.write('end\n')
+        io.write('\n')
+
+        env = self.get_env()
+
+        for key in self.get_all_keys():
+            io.write('if test -n "${}"\n'.format(key))
+            io.write('\tif not set -q _OLD_{}\n'.format(key))
+            io.write('\t\tset -gx _OLD_{} ${}\t\n'.format(key, key))
+            io.write('\tend\n')
+            io.write('end\n')
+
+            if key in env:
+                io.write('set -gx {} {}\n'.format(key, env[key]))
+
+        io.write('\n')
+
+        io.write('set -gx _OLD_PWD $PWD\n')
+        io.write('cd {}\n'.format(self._prefix))
+        io.write('\n')
+        io.write('function goc\n')
+        io.write('\tcd $WINEPREFIX/drive_c\n')
+        io.write('end\n')
+        return io.getvalue()
+
+
+class CorkRCFish(WineRC):
+
+    def get_rc(self):
+        io = StringIO()
+
+        for key in self.get_all_keys():
+            io.write('if set -q _OLD_{}\n'.format(key))
+            io.write('\tset -gx {} $_OLD_{}\n'.format(key, key))
+            io.write('\tset -e _OLD_{}\n'.format(key))
+            if key != 'PATH':
+                io.write('else\n')
+                io.write('\tset -e {}\n'.format(key))
+            io.write('end\n')
+            io.write('\n')
+
+        return io.getvalue()

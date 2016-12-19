@@ -1,0 +1,47 @@
+if set -q _OLD_WINESERVERPATH
+	set -gx WINESERVERPATH $_OLD_WINESERVERPATH
+	set -e _OLD_WINESERVERPATH
+else
+	set -e WINESERVERPATH
+end
+
+if set -q _OLD_PATH
+	set -gx PATH $_OLD_PATH
+	set -e _OLD_PATH
+end
+
+if set -q _OLD_WINESERVER
+	set -gx WINESERVER $_OLD_WINESERVER
+	set -e _OLD_WINESERVER
+else
+	set -e WINESERVER
+end
+
+if set -q _OLD_WINELOADER
+	set -gx WINELOADER $_OLD_WINELOADER
+	set -e _OLD_WINELOADER
+else
+	set -e WINELOADER
+end
+
+if set -q _OLD_WINEDLLPATH
+	set -gx WINEDLLPATH $_OLD_WINEDLLPATH
+	set -e _OLD_WINEDLLPATH
+else
+	set -e WINEDLLPATH
+end
+
+if set -q _OLD_LD_LIBRARY_PATH
+	set -gx LD_LIBRARY_PATH $_OLD_LD_LIBRARY_PATH
+	set -e _OLD_LD_LIBRARY_PATH
+else
+	set -e LD_LIBRARY_PATH
+end
+
+if set -q _OLD_WINEPREFIX
+	set -gx WINEPREFIX $_OLD_WINEPREFIX
+	set -e _OLD_WINEPREFIX
+else
+	set -e WINEPREFIX
+end
+
