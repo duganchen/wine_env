@@ -11,9 +11,9 @@ function bottle
 			if echo $argv[1] | egrep -q '^[A-Za-z0-9]+$'
 				mkdir -p $HOME/.local/share/wineprefixes/$argv[1]/bin
 
-				mkuncorkrc $argv[1] > $HOME/.local/share/wineprefixes/$argv[1]/bin/uncorkrc.fish
-				mkcorkrc $argv[1] > $HOME/.local/share/wineprefixes/$argv[1]/bin/corkrc.fish
-				mkrunrc $argv[1] > $HOME/.local/share/wineprefixes/$argv[1]/bin/runrc.fish
+				mkuncorkrc_fish $argv[1] > $HOME/.local/share/wineprefixes/$argv[1]/bin/uncorkrc.fish
+				mkcorkrc_fish $argv[1] > $HOME/.local/share/wineprefixes/$argv[1]/bin/corkrc.fish
+				mkrunrc_fish $argv[1] > $HOME/.local/share/wineprefixes/$argv[1]/bin/runrc.fish
 				source $HOME/.local/share/wineprefixes/$argv[1]/bin/uncorkrc.fish
 			else
 				_bottler_help
@@ -23,9 +23,9 @@ function bottle
 				if [ -x $argv[2] ]
 					mkdir -p $HOME/.local/share/wineprefixes/$argv[1]/bin
 
-					mkuncorkrc --wine $argv[2] $argv[1] > $HOME/.local/share/wineprefixes/$argv[1]/bin/uncorkrc.fish
-					mkcorkrc --wine $argv[2] $argv[1] > $HOME/.local/share/wineprefixes/$argv[1]/bin/corkrc.fish
-					mkrunrc --wine $argv[2] $argv[1] > $HOME/.local/share/wineprefixes/$argv[1]/bin/runrc.fish
+					mkuncorkrc_fish --wine $argv[2] $argv[1] > $HOME/.local/share/wineprefixes/$argv[1]/bin/uncorkrc.fish
+					mkcorkrc_fish --wine $argv[2] $argv[1] > $HOME/.local/share/wineprefixes/$argv[1]/bin/corkrc.fish
+					mkrunrc_fish --wine $argv[2] $argv[1] > $HOME/.local/share/wineprefixes/$argv[1]/bin/runrc.fish
 					source $HOME/.local/share/wineprefixes/$argv[1]/bin/uncorkrc.fish
 				end
 			else

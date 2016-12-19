@@ -25,7 +25,10 @@ setup(
         'console_scripts': [
             'mkcorkrc = wine_env.mkcorkrc:main',
             'mkuncorkrc = wine_env.mkuncorkrc:main',
-            'mkrunrc = wine_env.mkrunrc:main'
+            'mkrunrc = wine_env.mkrunrc:main',
+            'mkcorkrc_fish = wine_env.mkcorkrc_fish:main',
+            'mkuncorkrc_fish = wine_env.mkuncorkrc_fish:main',
+            'mkrunrc_fish = wine_env.mkrunrc_fish:main'
         ]
     },
     scripts=(
