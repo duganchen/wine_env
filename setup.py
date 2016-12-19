@@ -13,7 +13,7 @@ class Installer(install.install):
 
         for filepath in self.get_outputs():
             _, ext = os.path.splitext(filepath)
-            if ext in ('.sh', '.zsh'):
+            if ext in ('.fish', '.sh', '.zsh'):
                 mode = stat.S_IWUSR | stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH
                 os.chmod(filepath, mode)
 setup(
@@ -31,6 +31,7 @@ setup(
     scripts=(
         'bottle-run',
         'bottler.sh',
+        'bottler.fish',
         'wine_env_complete.sh',
         'wine_env_complete.zsh'
     ),
