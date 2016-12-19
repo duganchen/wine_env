@@ -201,7 +201,57 @@ class CorkRC(WineRC):
 
         return io.getvalue()
     
-class RunRCFish(WineRC):
+
+class WineRCFish(object):
+
+    def __init__(self, bottle, wine_executable=None):
+
+        self._prefix = os.path.join(
+            '$HOME', '.local', 'share', 'wineprefixes', bottle
+        )
+
+        self._bottle = bottle
+
+        self._wine = wine_executable
+        if self._wine:
+            self._wine = os.path.dirname(
+                os.path.dirname(os.path.expanduser(self._wine))
+            )
+
+    def get_env(self):
+
+        environment = {'WINEPREFIX': self._prefix}
+
+        if not self._wine:
+            return environment
+
+        path = ' '.join([os.path.join('$W', 'bin'), '$PATH'])
+        wine_server = os.path.join('$W', 'bin', 'wineserver')
+        wine_loader = os.path.join('$W', 'bin', 'wine')
+        wine_dll_path = os.path.join('$W', 'lib', 'wine', 'fakedlls')
+        ld_library_path = ' '.join(
+            [os.path.join('$W', 'lib'), '$LD_LIBRARY_PATH']
+        )
+
+        environment['WINESERVERPATH'] = '$W'
+        environment['PATH'] = path
+        environment['WINESERVER'] = wine_server
+        environment['WINELOADER'] = wine_loader
+        environment['WINEDLLPATH'] = wine_dll_path
+        environment['LD_LIBRARY_PATH'] = ld_library_path
+        environment['WINEPREFIX'] = self._prefix
+
+        return environment
+
+    @staticmethod
+    def get_all_keys():
+        return (
+            'WINESERVERPATH', 'PATH', 'WINESERVER', 'WINELOADER',
+            'WINEDLLPATH', 'LD_LIBRARY_PATH', 'WINEPREFIX'
+        )
+
+
+class RunRCFish(WineRCFish):
 
     def get_rc(self):
         env = self.get_env()
@@ -215,7 +265,7 @@ class RunRCFish(WineRC):
         return script
 
 
-class UncorkRCFish(WineRC):
+class UncorkRCFish(WineRCFish):
 
     def get_rc(self):
 
@@ -268,7 +318,7 @@ class UncorkRCFish(WineRC):
         return io.getvalue()
 
 
-class CorkRCFish(WineRC):
+class CorkRCFish(WineRCFish):
 
     def get_rc(self):
         io = StringIO()
