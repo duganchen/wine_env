@@ -95,8 +95,8 @@ class RunRC(WineRC):
         if self._wine:
             string_io.write('W={}\n'.format(self._wine))
             string_io.write('\n')
-        for key, value in env.items():
-            string_io.write('{}={}\n'.format(key, value))
+        for key in sorted(env.keys()):
+            string_io.write('{}={}\n'.format(key, env[key]))
             string_io.write('export {}\n'.format(key))
         script = string_io.getvalue()
         return script
@@ -259,8 +259,8 @@ class RunRCFish(WineRCFish):
         if self._wine:
             string_io.write('set W {}\n'.format(self._wine))
             string_io.write('\n')
-        for key, value in env.items():
-            string_io.write('set -gx {} {}\n'.format(key, value))
+        for key in sorted(env.keys()):
+            string_io.write('set -gx {} {}\n'.format(key, env[key]))
         script = string_io.getvalue()
         return script
 
