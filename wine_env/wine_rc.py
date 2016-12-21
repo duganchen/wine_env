@@ -5,7 +5,7 @@ from __future__ import (
 )
 
 import argparse
-from cStringIO import StringIO
+from io import StringIO
 import os
 import sys
 
@@ -91,14 +91,14 @@ class RunRC(WineRC):
 
     def get_rc(self):
         env = self.get_env()
-        io = StringIO()
+        string_io = StringIO()
         if self._wine:
-            io.write('W={}\n'.format(self._wine))
-            io.write('\n')
-        for key, value in env.iteritems():
-            io.write('{}={}\n'.format(key, value))
-            io.write('export {}\n'.format(key))
-        script = io.getvalue()
+            string_io.write('W={}\n'.format(self._wine))
+            string_io.write('\n')
+        for key, value in env.items():
+            string_io.write('{}={}\n'.format(key, value))
+            string_io.write('export {}\n'.format(key))
+        script = string_io.getvalue()
         return script
 
 
@@ -107,99 +107,99 @@ class UncorkRC(WineRC):
     def get_rc(self):
         env = self.get_env()
 
-        io = StringIO()
+        string_io = StringIO()
 
         if self._wine:
-            io.write('W={}\n'.format(self._wine))
-            io.write('\n')
+            string_io.write('W={}\n'.format(self._wine))
+            string_io.write('\n')
 
-        io.write('if type cork &> /dev/null; then\n')
-        io.write('\tcork\n')
-        io.write('fi\n')
-        io.write('\n')
+        string_io.write('if type cork &> /dev/null; then\n')
+        string_io.write('\tcork\n')
+        string_io.write('fi\n')
+        string_io.write('\n')
 
-        io.write('cork() {\n')
-        io.write('\n')
+        string_io.write('cork() {\n')
+        string_io.write('\n')
         corker = os.path.join(self._prefix, 'bin', 'corkrc.sh')
-        io.write('\t. "{}"\n'.format(corker))
-        io.write('\n')
+        string_io.write('\t. "{}"\n'.format(corker))
+        string_io.write('\n')
 
-        io.write('\tif [ -n "$_OLD_WD" ]; then\n')
-        io.write('\t\tcd "$_OLD_WD"\n')
-        io.write('\tfi\n')
-        io.write('\n')
+        string_io.write('\tif [ -n "$_OLD_WD" ]; then\n')
+        string_io.write('\t\tcd "$_OLD_WD"\n')
+        string_io.write('\tfi\n')
+        string_io.write('\n')
 
-        io.write('\tif [ -z "$WINE_ENV_DISABLE_PROMPT" ]; then\n')
-        io.write('\t\tPS1="$_OLD_PS1"\n')
-        io.write('\t\texport PS1\n')
-        io.write('\t\tunset _OLD_PS1\n')
-        io.write('\tfi\n')
-        io.write('\n')
+        string_io.write('\tif [ -z "$WINE_ENV_DISABLE_PROMPT" ]; then\n')
+        string_io.write('\t\tPS1="$_OLD_PS1"\n')
+        string_io.write('\t\texport PS1\n')
+        string_io.write('\t\tunset _OLD_PS1\n')
+        string_io.write('\tfi\n')
+        string_io.write('\n')
 
-        io.write('\tif [ -z "$_OLD_WD" ]; then\n')
-        io.write('\t\tcd $_OLD_WD\n')
-        io.write('\t\tunset _OLD_WD\n')
-        io.write('\tfi\n')
-        io.write('\n')
+        string_io.write('\tif [ -z "$_OLD_WD" ]; then\n')
+        string_io.write('\t\tcd $_OLD_WD\n')
+        string_io.write('\t\tunset _OLD_WD\n')
+        string_io.write('\tfi\n')
+        string_io.write('\n')
 
-        io.write('\tunset W\n')
-        io.write('\tunset BOTTLE\n')
-        io.write('\tunset -f goc\n')
-        io.write('\tunset -f cork\n')
+        string_io.write('\tunset W\n')
+        string_io.write('\tunset BOTTLE\n')
+        string_io.write('\tunset -f goc\n')
+        string_io.write('\tunset -f cork\n')
 
-        io.write('}\n')
-        io.write('\n')
+        string_io.write('}\n')
+        string_io.write('\n')
 
         env = self.get_env()
         for key in self.get_all_keys():
-            io.write('if [ -n "${}" ]; then\n'.format(key))
-            io.write('\tif [ -z "$_OLD_{}" ]; then\n'.format(key))
-            io.write('\t\t_OLD_{}="${}"\n'.format(key, key))
-            io.write('\t\texport _OLD_{}\n'.format(key))
-            io.write('\tfi\n')
-            io.write('fi\n')
+            string_io.write('if [ -n "${}" ]; then\n'.format(key))
+            string_io.write('\tif [ -z "$_OLD_{}" ]; then\n'.format(key))
+            string_io.write('\t\t_OLD_{}="${}"\n'.format(key, key))
+            string_io.write('\t\texport _OLD_{}\n'.format(key))
+            string_io.write('\tfi\n')
+            string_io.write('fi\n')
 
             if key in env:
-                io.write('{}={}\n'.format(key, env[key]))
-                io.write('export {}\n'.format(key))
+                string_io.write('{}={}\n'.format(key, env[key]))
+                string_io.write('export {}\n'.format(key))
 
-            io.write('\n')
+            string_io.write('\n')
 
-        io.write('BOTTLE="{}"\n'.format(self._bottle))
-        io.write('export BOTTLE\n')
-        io.write('\n')
-        io.write('if [ -z "$WINE_ENV_DISABLE_PROMPT" ]; then\n')
-        io.write('\t_OLD_PS1="$PS1"\n')
-        io.write('\tPS1="({})$PS1"\n'.format(self._bottle))
-        io.write('fi\n')
-        io.write('\n')
-        io.write('_OLD_WD="$(pwd)"\n')
-        io.write('cd "{}"\n'.format(self._prefix))
-        io.write('\n')
-        io.write('goc() {\n')
-        io.write('\tcd "$WINEPREFIX/drive_c"\n')
-        io.write('}\n')
-        return io.getvalue()
+        string_io.write('BOTTLE="{}"\n'.format(self._bottle))
+        string_io.write('export BOTTLE\n')
+        string_io.write('\n')
+        string_io.write('if [ -z "$WINE_ENV_DISABLE_PROMPT" ]; then\n')
+        string_io.write('\t_OLD_PS1="$PS1"\n')
+        string_io.write('\tPS1="({})$PS1"\n'.format(self._bottle))
+        string_io.write('fi\n')
+        string_io.write('\n')
+        string_io.write('_OLD_WD="$(pwd)"\n')
+        string_io.write('cd "{}"\n'.format(self._prefix))
+        string_io.write('\n')
+        string_io.write('goc() {\n')
+        string_io.write('\tcd "$WINEPREFIX/drive_c"\n')
+        string_io.write('}\n')
+        return string_io.getvalue()
 
 
 class CorkRC(WineRC):
 
     def get_rc(self):
 
-        io = StringIO()
+        string_io = StringIO()
 
         for key in self.get_all_keys():
-            io.write('if [ -n "_OLD_{}" ]; then\n')
-            io.write('\t{}="$_OLD_{}"\n'.format(key, key))
-            io.write('\texport {}\n'.format(key))
-            io.write('\tunset _OLD_{}\n'.format(key))
+            string_io.write('if [ -n "_OLD_{}" ]; then\n')
+            string_io.write('\t{}="$_OLD_{}"\n'.format(key, key))
+            string_io.write('\texport {}\n'.format(key))
+            string_io.write('\tunset _OLD_{}\n'.format(key))
             if key != 'PATH':
-                io.write('else\n')
-                io.write('\tunset {}\n'.format(key))
-            io.write('fi\n')
-            io.write('\n')
+                string_io.write('else\n')
+                string_io.write('\tunset {}\n'.format(key))
+            string_io.write('fi\n')
+            string_io.write('\n')
 
-        return io.getvalue()
+        return string_io.getvalue()
     
 
 class WineRCFish(object):
@@ -255,13 +255,13 @@ class RunRCFish(WineRCFish):
 
     def get_rc(self):
         env = self.get_env()
-        io = StringIO()
+        string_io = StringIO()
         if self._wine:
-            io.write('set W {}\n'.format(self._wine))
-            io.write('\n')
-        for key, value in env.iteritems():
-            io.write('set -gx {} {}\n'.format(key, value))
-        script = io.getvalue()
+            string_io.write('set W {}\n'.format(self._wine))
+            string_io.write('\n')
+        for key, value in env.items():
+            string_io.write('set -gx {} {}\n'.format(key, value))
+        script = string_io.getvalue()
         return script
 
 
@@ -269,68 +269,68 @@ class UncorkRCFish(WineRCFish):
 
     def get_rc(self):
 
-        io = StringIO()
+        string_io = StringIO()
 
         if self._wine:
-            io.write('set W {}\n'.format(self._wine))
-            io.write('\n')
+            string_io.write('set W {}\n'.format(self._wine))
+            string_io.write('\n')
 
-        io.write('if functions -q cork\n')
-        io.write('\tcork\n')
-        io.write('end\n')
-        io.write('\n')
-        io.write('function cork\n')
+        string_io.write('if functions -q cork\n')
+        string_io.write('\tcork\n')
+        string_io.write('end\n')
+        string_io.write('\n')
+        string_io.write('function cork\n')
         corker = os.path.join(self._prefix, 'bin', 'corkrc.fish')
-        io.write('\tsource {}\n'.format(corker))
-        io.write('\tcd "$_OLD_PWD"\n')
-        io.write('\t\tset -e _OLD_PWD\n')
-        io.write('\tif set -q W')
-        io.write('\t\tset -e W\n')
-        io.write('\tend\n')
-        io.write('\tif set -q BOTTLE\n')
-        io.write('\t\tset -e BOTTLE\n')
-        io.write('\tend\n')
-        io.write('\tfunctions -e goc\n')
-        io.write('\tfunctions -e cork\n')
-        io.write('end\n')
-        io.write('\n')
+        string_io.write('\tsource {}\n'.format(corker))
+        string_io.write('\tcd "$_OLD_PWD"\n')
+        string_io.write('\t\tset -e _OLD_PWD\n')
+        string_io.write('\tif set -q W')
+        string_io.write('\t\tset -e W\n')
+        string_io.write('\tend\n')
+        string_io.write('\tif set -q BOTTLE\n')
+        string_io.write('\t\tset -e BOTTLE\n')
+        string_io.write('\tend\n')
+        string_io.write('\tfunctions -e goc\n')
+        string_io.write('\tfunctions -e cork\n')
+        string_io.write('end\n')
+        string_io.write('\n')
 
         env = self.get_env()
 
         for key in self.get_all_keys():
-            io.write('if test -n "${}"\n'.format(key))
-            io.write('\tif not set -q _OLD_{}\n'.format(key))
-            io.write('\t\tset -gx _OLD_{} ${}\t\n'.format(key, key))
-            io.write('\tend\n')
-            io.write('end\n')
+            string_io.write('if test -n "${}"\n'.format(key))
+            string_io.write('\tif not set -q _OLD_{}\n'.format(key))
+            string_io.write('\t\tset -gx _OLD_{} ${}\t\n'.format(key, key))
+            string_io.write('\tend\n')
+            string_io.write('end\n')
 
             if key in env:
-                io.write('set -gx {} {}\n'.format(key, env[key]))
+                string_io.write('set -gx {} {}\n'.format(key, env[key]))
 
-        io.write('\n')
+        string_io.write('\n')
 
-        io.write('set -gx _OLD_PWD $PWD\n')
-        io.write('cd {}\n'.format(self._prefix))
-        io.write('\n')
-        io.write('function goc\n')
-        io.write('\tcd $WINEPREFIX/drive_c\n')
-        io.write('end\n')
-        return io.getvalue()
+        string_io.write('set -gx _OLD_PWD $PWD\n')
+        string_io.write('cd {}\n'.format(self._prefix))
+        string_io.write('\n')
+        string_io.write('function goc\n')
+        string_io.write('\tcd $WINEPREFIX/drive_c\n')
+        string_io.write('end\n')
+        return string_io.getvalue()
 
 
 class CorkRCFish(WineRCFish):
 
     def get_rc(self):
-        io = StringIO()
+        string_io = StringIO()
 
         for key in self.get_all_keys():
-            io.write('if set -q _OLD_{}\n'.format(key))
-            io.write('\tset -gx {} $_OLD_{}\n'.format(key, key))
-            io.write('\tset -e _OLD_{}\n'.format(key))
+            string_io.write('if set -q _OLD_{}\n'.format(key))
+            string_io.write('\tset -gx {} $_OLD_{}\n'.format(key, key))
+            string_io.write('\tset -e _OLD_{}\n'.format(key))
             if key != 'PATH':
-                io.write('else\n')
-                io.write('\tset -e {}\n'.format(key))
-            io.write('end\n')
-            io.write('\n')
+                string_io.write('else\n')
+                string_io.write('\tset -e {}\n'.format(key))
+            string_io.write('end\n')
+            string_io.write('\n')
 
-        return io.getvalue()
+        return string_io.getvalue()
