@@ -7,9 +7,13 @@ Wine software.
 
 Install it the way you would any Python application:
 
-	python setup.py install
+	python3 setup.py install
 
-Then do the following to activate it:
+## Activation
+
+### BASH, ASH, DASH, ZSH
+
+Do the following to activate it you're using a Bourne-based shell:
 
 	source /usr/bin/bottle.sh
 
@@ -20,6 +24,12 @@ If you're using BASH, then also activate autocompletion for BASH:
 And if you're using ZSH, then activate autocompletion for ZSH:
 
 	source /usr/bin/wine_env_complete.zsh
+
+### FISH
+
+If you're using FISH, then do the following:
+
+	source /usr/bin/bottle.fish
 
 ## Usage
 
@@ -154,14 +164,30 @@ To delete bottles, simply delete them from the following directory:
 
 	~/.local/share/wineprefixes.
 
+## Prompt
+
+If you're using a Bourne-based shell, then the prompt should be updated
+as needed.
+
+### FISH
+
+In your fish prompt function (~/.config/fish/functions/fish_prompt.fish),
+add the following:
+
+	if set -q WINEPREFIX
+		if test -d $WINEPREFIX
+			echo -n -s (set_color -b 722437 white) "(" (basename $WINEPREFIX) ")" (set_color normal) " "
+		end
+	end
+
+### Disabling
+
 If you don't want wine_env to modify the prompt, then do the following:
 
     export WINE_ENV_DISABLE_PROMPT=1
 
+### Powerline
+
 [Powerline](https://github.com/powerline/powerline) users can use my
 [wine_env_powerline](https://github.com/duganchen/wine_env_powerline) project
 to integrate wine_env with Powerline.
-
-This project is for shells with Bourne Shell syntax: BASH, ZSH, dash and ash.
-Users of the fish shell can use [wine_env_fish](https://github.com/duganchen/wine_env_fish)
-instead.
