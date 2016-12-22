@@ -36,7 +36,14 @@ class Main(object):
         print(wine_rc.get_rc())
 
 
-class WineRC(object):
+class WineRCBase(object):
+
+    @staticmethod
+    def get_all_keys():
+        return (
+            'WINESERVERPATH', 'PATH', 'WINESERVER', 'WINELOADER',
+            'WINEDLLPATH', 'LD_LIBRARY_PATH', 'WINEPREFIX'
+        )
 
     def __init__(self, bottle, wine_executable=None):
 
@@ -51,6 +58,8 @@ class WineRC(object):
             self._wine = os.path.dirname(
                 os.path.dirname(os.path.expanduser(self._wine))
             )
+
+class WineRC(WineRCBase):
 
     def get_env(self):
 
@@ -79,12 +88,33 @@ class WineRC(object):
 
         return environment
 
-    @staticmethod
-    def get_all_keys():
-        return (
-            'WINESERVERPATH', 'PATH', 'WINESERVER', 'WINELOADER',
-            'WINEDLLPATH', 'LD_LIBRARY_PATH', 'WINEPREFIX'
+
+class WineRCFish(WineRCBase):
+
+    def get_env(self):
+
+        environment = {'WINEPREFIX': self._prefix}
+
+        if not self._wine:
+            return environment
+
+        path = ' '.join([os.path.join('$W', 'bin'), '$PATH'])
+        wine_server = os.path.join('$W', 'bin', 'wineserver')
+        wine_loader = os.path.join('$W', 'bin', 'wine')
+        wine_dll_path = os.path.join('$W', 'lib', 'wine', 'fakedlls')
+        ld_library_path = ' '.join(
+            [os.path.join('$W', 'lib'), '$LD_LIBRARY_PATH']
         )
+
+        environment['WINESERVERPATH'] = '$W'
+        environment['PATH'] = path
+        environment['WINESERVER'] = wine_server
+        environment['WINELOADER'] = wine_loader
+        environment['WINEDLLPATH'] = wine_dll_path
+        environment['LD_LIBRARY_PATH'] = ld_library_path
+        environment['WINEPREFIX'] = self._prefix
+
+        return environment
 
 
 class RunRC(WineRC):
@@ -201,55 +231,6 @@ class CorkRC(WineRC):
 
         return string_io.getvalue()
     
-
-class WineRCFish(object):
-
-    def __init__(self, bottle, wine_executable=None):
-
-        self._prefix = os.path.join(
-            '$HOME', '.local', 'share', 'wineprefixes', bottle
-        )
-
-        self._bottle = bottle
-
-        self._wine = wine_executable
-        if self._wine:
-            self._wine = os.path.dirname(
-                os.path.dirname(os.path.expanduser(self._wine))
-            )
-
-    def get_env(self):
-
-        environment = {'WINEPREFIX': self._prefix}
-
-        if not self._wine:
-            return environment
-
-        path = ' '.join([os.path.join('$W', 'bin'), '$PATH'])
-        wine_server = os.path.join('$W', 'bin', 'wineserver')
-        wine_loader = os.path.join('$W', 'bin', 'wine')
-        wine_dll_path = os.path.join('$W', 'lib', 'wine', 'fakedlls')
-        ld_library_path = ' '.join(
-            [os.path.join('$W', 'lib'), '$LD_LIBRARY_PATH']
-        )
-
-        environment['WINESERVERPATH'] = '$W'
-        environment['PATH'] = path
-        environment['WINESERVER'] = wine_server
-        environment['WINELOADER'] = wine_loader
-        environment['WINEDLLPATH'] = wine_dll_path
-        environment['LD_LIBRARY_PATH'] = ld_library_path
-        environment['WINEPREFIX'] = self._prefix
-
-        return environment
-
-    @staticmethod
-    def get_all_keys():
-        return (
-            'WINESERVERPATH', 'PATH', 'WINESERVER', 'WINELOADER',
-            'WINEDLLPATH', 'LD_LIBRARY_PATH', 'WINEPREFIX'
-        )
-
 
 class RunRCFish(WineRCFish):
 
