@@ -5,3 +5,4 @@ build/
 MANIFEST
 *.egg-info
 bottle-run
+.cache

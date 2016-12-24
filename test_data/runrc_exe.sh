@@ -1,4 +1,4 @@
-W=/path/to/wine64-1.4
+W=/home/dugan/Software/wine-1.7.3
 
 LD_LIBRARY_PATH="$W/lib:$LD_LIBRARY_PATH"
 export LD_LIBRARY_PATH

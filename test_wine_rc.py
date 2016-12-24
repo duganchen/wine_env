@@ -1,6 +1,8 @@
 from wine_env import wine_rc
 import os
 
+exe = '~/Software/wine-1.7.3/bin/wine'
+
 
 def get_path(filename):
     directory = os.path.dirname(__file__)
@@ -15,7 +17,7 @@ def test_runrc():
 
 
 def test_runrc_exe():
-    rc = wine_rc.RunRC('bottle', '/path/to/wine64-1.4/bin/wine')
+    rc = wine_rc.RunRC('bottle', exe) 
     with open(get_path('runrc_exe.sh')) as f:
         expected = f.read()
     assert expected == rc.get_rc()
@@ -29,7 +31,7 @@ def test_uncorkc():
 
 
 def test_uncorkc_exe():
-    rc = wine_rc.UncorkRC('bottle', '/path/to/wine-1.7.3/bin/wine')
+    rc = wine_rc.UncorkRC('bottle', exe) 
     with open(get_path('uncorkrc_exe.sh')) as f:
         expected = f.read()
     assert expected == rc.get_rc()
@@ -44,7 +46,7 @@ def test_corkrc():
 
 def test_corkrc_exe():
 
-    rc = wine_rc.CorkRC('bottle', '/path/to/wine-1.7.3/bin/wine')
+    rc = wine_rc.CorkRC('bottle', exe)
     with open(get_path('corkrc_exe.sh')) as f:
         expected = f.read()
     assert expected == rc.get_rc()
@@ -58,7 +60,7 @@ def test_runrc_fish():
 
 
 def test_runrc_exe_fish():
-    rc = wine_rc.RunRCFish('bottle', '/path/to/wine-1.7.3/bin/wine')
+    rc = wine_rc.RunRCFish('bottle', exe) 
     with open(get_path('runrc_exe.fish')) as f:
         expected = f.read()
     assert expected == rc.get_rc()
@@ -72,7 +74,7 @@ def test_uncorkc_fish():
 
 
 def test_uncorkc_exe_fish():
-    rc = wine_rc.UncorkRCFish('bottle', '/path/to/wine-1.7.3/bin/wine')
+    rc = wine_rc.UncorkRCFish('bottle', exe)
     with open(get_path('uncorkrc_exe.fish')) as f:
         expected = f.read()
     assert expected == rc.get_rc()
@@ -87,7 +89,7 @@ def test_corkrc_fish():
 
 def test_corkrc_exe_fish():
 
-    rc = wine_rc.CorkRCFish('bottle', '/path/to/wine-1.7.3/bin/wine')
+    rc = wine_rc.CorkRCFish('bottle', exe)
     with open(get_path('corkrc_exe.fish')) as f:
         expected = f.read()
     assert expected == rc.get_rc()

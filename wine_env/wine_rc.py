@@ -185,7 +185,7 @@ class CorkRC(WineRC):
         string_io = StringIO()
 
         for key in self.get_all_keys():
-            string_io.write('if [ -n "_OLD_{}" ]; then\n')
+            string_io.write(f'if [ -n "_OLD_{key}" ]; then\n')
             string_io.write(f'\t{key}="$_OLD_{key}"\n')
             string_io.write(f'\texport {key}\n')
             string_io.write(f'\tunset _OLD_{key}\n')

@@ -1,4 +1,4 @@
-set W /path/to/wine-1.7.3
+set W /home/dugan/Software/wine-1.7.3
 
 if functions -q cork
 	cork

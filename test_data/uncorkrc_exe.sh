@@ -1,4 +1,4 @@
-W=/path/to/wine-1.7.3
+W=/home/dugan/Software/wine-1.7.3
 
 if type cork &> /dev/null; then
 	cork
