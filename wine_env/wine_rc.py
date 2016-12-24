@@ -8,13 +8,6 @@ class WineRCBase(object):
     wine_loader = os.path.join('$W', 'bin', 'wine')
     wine_dll_path = os.path.join('$W', 'lib', 'wine', 'fakedlls')
 
-    def get_all_keys(self):
-
-        keys = ['WINESERVERPATH', 'PATH', 'WINESERVER', 'WINELOADER', 'WINEDLLPATH', 'LD_LIBRARY_PATH', 'WINEPREFIX']
-        if self._win32:
-            keys.append('WINEARCH')
-        return keys
-
     def __init__(self, bottle, wine_executable=None, win32=False):
 
         self._prefix = os.path.join(
@@ -30,6 +23,13 @@ class WineRCBase(object):
             )
 
         self._win32 = win32
+
+    def get_all_keys(self):
+
+        keys = ['WINESERVERPATH', 'PATH', 'WINESERVER', 'WINELOADER', 'WINEDLLPATH', 'LD_LIBRARY_PATH', 'WINEPREFIX']
+        if self._win32:
+            keys.append('WINEARCH')
+        return keys
 
     def get_env(self):
 

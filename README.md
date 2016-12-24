@@ -27,7 +27,16 @@ And if you're using ZSH, then activate autocompletion for ZSH:
 
 ### FISH
 
-If you're using FISH, then do the following:
+In your fish prompt function (~/.config/fish/functions/fish_prompt.fish),
+add the following:
+
+	if set -q WINEPREFIX
+		if test -d $WINEPREFIX
+			echo -n -s (set_color -b 722437 white) "(" (basename $WINEPREFIX) ")" (set_color normal) " "
+		end
+	end
+
+Then activate wine_env:
 
 	source /usr/bin/bottle.fish
 
@@ -55,7 +64,11 @@ which will use your Wine 1.7.31 build:
 
 	bottle D3 ~/wine-1.7.31/bin/wine
 
-Creating a bottle automatically puts you in that *bottle environment*. Your
+You can then activate that bottle:
+
+	uncork D3
+
+Activating a bottle puts you in that *bottle environment*. Your
 prompt will now start with "(D3)", and your current directory will be changed
 to your new Wine bottle:
 
@@ -164,21 +177,7 @@ To delete bottles, simply delete them from the following directory:
 
 	~/.local/share/wineprefixes.
 
-## Prompt
-
-If you're using a Bourne-based shell, then the prompt should be updated
-as needed.
-
-### FISH
-
-In your fish prompt function (~/.config/fish/functions/fish_prompt.fish),
-add the following:
-
-	if set -q WINEPREFIX
-		if test -d $WINEPREFIX
-			echo -n -s (set_color -b 722437 white) "(" (basename $WINEPREFIX) ")" (set_color normal) " "
-		end
-	end
+## Notes on the Prompt
 
 ### Disabling
 
