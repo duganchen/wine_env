@@ -6,10 +6,58 @@ fi
 
 cork() {
 
-	. "$HOME/.local/share/wineprefixes/bottle/bin/corkrc.sh"
+	if [ -n "_OLD_WINEVERPATH" ]; then
+		WINEVERPATH="$_OLD_WINEVERPATH"
+		export WINEVERPATH
+		unset _OLD_WINEVERPATH
+	else
+		unset WINEVERPATH
+	fi
 
-	if [ -n "$_OLD_WD" ]; then
-		cd "$_OLD_WD"
+	if [ -n "_OLD_PATH" ]; then
+		PATH="$_OLD_PATH"
+		export PATH
+		unset _OLD_PATH
+	fi
+
+	if [ -n "_OLD_WINESERVER" ]; then
+		WINESERVER="$_OLD_WINESERVER"
+		export WINESERVER
+		unset _OLD_WINESERVER
+	else
+		unset WINESERVER
+	fi
+
+	if [ -n "_OLD_WINELOADER" ]; then
+		WINELOADER="$_OLD_WINELOADER"
+		export WINELOADER
+		unset _OLD_WINELOADER
+	else
+		unset WINELOADER
+	fi
+
+	if [ -n "_OLD_WINEDLLPATH" ]; then
+		WINEDLLPATH="$_OLD_WINEDLLPATH"
+		export WINEDLLPATH
+		unset _OLD_WINEDLLPATH
+	else
+		unset WINEDLLPATH
+	fi
+
+	if [ -n "_OLD_LD_LIBRARY_PATH" ]; then
+		LD_LIBRARY_PATH="$_OLD_LD_LIBRARY_PATH"
+		export LD_LIBRARY_PATH
+		unset _OLD_LD_LIBRARY_PATH
+	else
+		unset LD_LIBRARY_PATH
+	fi
+
+	if [ -n "_OLD_WINEPREFIX" ]; then
+		WINEPREFIX="$_OLD_WINEPREFIX"
+		export WINEPREFIX
+		unset _OLD_WINEPREFIX
+	else
+		unset WINEPREFIX
 	fi
 
 	if [ -z "$WINE_ENV_DISABLE_PROMPT" ]; then

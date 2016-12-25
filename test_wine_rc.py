@@ -17,7 +17,7 @@ def test_runrc():
 
 
 def test_runrc_exe():
-    rc = wine_rc.RunRC('bottle', exe) 
+    rc = wine_rc.RunRC('bottle', exe)
     with open(get_path('runrc_exe.sh')) as f:
         expected = f.read()
     assert expected == rc.get_rc()
@@ -31,26 +31,10 @@ def test_uncorkc():
 
 
 def test_uncorkc_exe():
-    rc = wine_rc.UncorkRC('bottle', exe) 
+    rc = wine_rc.UncorkRC('bottle', exe)
     with open(get_path('uncorkrc_exe.sh')) as f:
         expected = f.read()
     assert expected == rc.get_rc()
-
-
-def test_corkrc():
-    rc = wine_rc.CorkRC('bottle')
-    with open(get_path('corkrc.sh')) as f:
-        expected = f.read()
-    assert expected == rc.get_rc()
-
-
-def test_corkrc_exe():
-
-    rc = wine_rc.CorkRC('bottle', exe)
-    with open(get_path('corkrc_exe.sh')) as f:
-        expected = f.read()
-    assert expected == rc.get_rc()
-
 
 def test_runrc_fish():
     rc = wine_rc.RunRCFish('bottle')
@@ -60,7 +44,7 @@ def test_runrc_fish():
 
 
 def test_runrc_exe_fish():
-    rc = wine_rc.RunRCFish('bottle', exe) 
+    rc = wine_rc.RunRCFish('bottle', exe)
     with open(get_path('runrc_exe.fish')) as f:
         expected = f.read()
     assert expected == rc.get_rc()
@@ -79,17 +63,3 @@ def test_uncorkc_exe_fish():
         expected = f.read()
     assert expected == rc.get_rc()
 
-
-def test_corkrc_fish():
-    rc = wine_rc.CorkRCFish('bottle')
-    with open(get_path('corkrc.fish')) as f:
-        expected = f.read()
-    assert expected == rc.get_rc()
-
-
-def test_corkrc_exe_fish():
-
-    rc = wine_rc.CorkRCFish('bottle', exe)
-    with open(get_path('corkrc_exe.fish')) as f:
-        expected = f.read()
-    assert expected == rc.get_rc()
