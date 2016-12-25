@@ -26,7 +26,7 @@ class WineRCBase(object):
 
     def get_all_keys(self):
 
-        keys = ['WINESERVERPATH', 'PATH', 'WINESERVER', 'WINELOADER', 'WINEDLLPATH', 'LD_LIBRARY_PATH', 'WINEPREFIX']
+        keys = ['WINEVERPATH', 'PATH', 'WINESERVER', 'WINELOADER', 'WINEDLLPATH', 'LD_LIBRARY_PATH', 'WINEPREFIX']
         if self._win32:
             keys.append('WINEARCH')
         return keys
@@ -55,7 +55,7 @@ class WineRC(WineRCBase):
 
     def _get_exe_env(self):
         return {
-            'WINESERVERPATH': '"$W"',
+            'WINEVERPATH': '"$W"',
             'PATH': f'"{self.path}"',
             'WINESERVER': f'"{self.wine_server}"',
             'WINELOADER': f'"{self.wine_loader}"',
@@ -74,7 +74,7 @@ class WineRCFish(WineRCBase):
     def _get_exe_env(self):
 
         return {
-            'WINESERVERPATH': '$W',
+            'WINEVERPATH': '$W',
             'PATH': self.path,
             'WINESERVER': self.wine_server,
             'WINELOADER': self.wine_loader,
