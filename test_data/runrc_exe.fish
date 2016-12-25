@@ -6,4 +6,4 @@ set -gx WINEDLLPATH $W/lib/wine/fakedlls
 set -gx WINELOADER $W/bin/wine
 set -gx WINEPREFIX $HOME/.local/share/wineprefixes/bottle
 set -gx WINESERVER $W/bin/wineserver
-set -gx WINESERVERPATH $W
+set -gx WINEVERPATH $W

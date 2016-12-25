@@ -17,12 +17,12 @@ function cork
 	functions -e cork
 end
 
-if test -n "$WINESERVERPATH"
-	if not set -q _OLD_WINESERVERPATH
-		set -gx _OLD_WINESERVERPATH $WINESERVERPATH	
+if test -n "$WINEVERPATH"
+	if not set -q _OLD_WINEVERPATH
+		set -gx _OLD_WINEVERPATH $WINEVERPATH	
 	end
 end
-set -gx WINESERVERPATH $W
+set -gx WINEVERPATH $W
 if test -n "$PATH"
 	if not set -q _OLD_PATH
 		set -gx _OLD_PATH $PATH	

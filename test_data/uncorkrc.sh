@@ -27,10 +27,10 @@ cork() {
 	unset -f cork
 }
 
-if [ -n "$WINESERVERPATH" ]; then
-	if [ -z "$_OLD_WINESERVERPATH" ]; then
-		_OLD_WINESERVERPATH="$WINESERVERPATH"
-		export _OLD_WINESERVERPATH
+if [ -n "$WINEVERPATH" ]; then
+	if [ -z "$_OLD_WINEVERPATH" ]; then
+		_OLD_WINEVERPATH="$WINEVERPATH"
+		export _OLD_WINEVERPATH
 	fi
 fi
 

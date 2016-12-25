@@ -12,5 +12,5 @@ WINEPREFIX="$HOME/.local/share/wineprefixes/bottle"
 export WINEPREFIX
 WINESERVER="$W/bin/wineserver"
 export WINESERVER
-WINESERVERPATH="$W"
-export WINESERVERPATH
+WINEVERPATH="$W"
+export WINEVERPATH
