@@ -9,4 +9,3 @@ _bash_completion() {
 
 complete -F _bash_completion uncork
 complete -F _bash_completion bottle-run
-complete -F _bash_completion bottle

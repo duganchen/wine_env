@@ -9,4 +9,3 @@ _zsh_completion() {
 
 compdef _zsh_completion uncork
 compdef _zsh_completion bottle-run
-compdef _zsh_completion bottle

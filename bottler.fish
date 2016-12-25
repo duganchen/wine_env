@@ -31,9 +31,6 @@ function __bottles
 	end
 end
 
-complete -e -c bottle
-complete -c bottle --no-files --arguments "(__bottles)"
-
 complete -e -c bottle-run
 complete -c bottle-run --no-files --arguments "(__bottles)"
 
