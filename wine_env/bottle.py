@@ -22,8 +22,6 @@ def main():
     rcs = (
         ('runrc.sh', wine_rc.RunRC(args.bottle, args.wine, args.win32)),
         ('runrc.fish', wine_rc.RunRCFish(args.bottle, args.wine, args.win32)),
-        ('corkrc.sh', wine_rc.CorkRC(args.bottle, args.wine, args.win32)),
-        ('corkrc.fish', wine_rc.CorkRCFish(args.bottle, args.wine, args.win32)),
         ('uncorkrc.sh', wine_rc.UncorkRC(args.bottle, args.wine, args.win32)),
         ('uncorkrc.fish', wine_rc.UncorkRCFish(args.bottle, args.wine, args.win32)),
     )
