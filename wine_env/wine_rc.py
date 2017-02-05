@@ -1,6 +1,6 @@
 from io import StringIO
 import os
-from typing import Dict, List
+from typing import Dict, List, Union
 
 
 class WineRCBase(object):
@@ -9,7 +9,7 @@ class WineRCBase(object):
     wine_loader = os.path.join('$W', 'bin', 'wine')
     wine_dll_path = os.path.join('$W', 'lib', 'wine', 'fakedlls')
 
-    def __init__(self, bottle: str, wine_executable=None):
+    def __init__(self, bottle: str, wine_executable: Union[None, str]=None):
 
         self._prefix = os.path.join(
             '$HOME', '.local', 'share', 'wineprefixes', bottle
