@@ -1,7 +1,8 @@
 from io import StringIO
 import os
-from typing import List
+from typing import Dict, List
 
+Environment = Dict[str, str]
 
 class WineRCBase(object):
 
@@ -27,7 +28,7 @@ class WineRCBase(object):
 
         return ['WINEVERPATH', 'PATH', 'WINESERVER', 'WINELOADER', 'WINEDLLPATH', 'LD_LIBRARY_PATH', 'WINEPREFIX']
 
-    def get_env(self) -> dict:
+    def get_env(self) -> Environment:
 
         environment = {'WINEPREFIX': self._prefix}
 
@@ -46,7 +47,7 @@ class WineRC(WineRCBase):
     path = ':'.join([os.path.join('$W', 'bin'), '$PATH'])
     ld_library_path = ':'.join([os.path.join('$W', 'lib'), '$LD_LIBRARY_PATH'])
 
-    def _get_exe_env(self) -> dict:
+    def _get_exe_env(self) -> Environment:
         return {
             'WINEVERPATH': '"$W"',
             'PATH': f'"{self.path}"',
@@ -63,7 +64,7 @@ class WineRCFish(WineRCBase):
     path = ' '.join([os.path.join('$W', 'bin'), '$PATH'])
     ld_library_path = ' '.join([os.path.join('$W', 'lib'), '$LD_LIBRARY_PATH'])
 
-    def _get_exe_env(self) -> dict:
+    def _get_exe_env(self) -> Environment:
 
         return {
             'WINEVERPATH': '$W',
