@@ -19,7 +19,7 @@ def main() -> None:
     os.makedirs(bin, exist_ok=True)
 
     rcs = (
-        ('runrc.sh', wine_rc.RunRC(args.bottle, args.wine),
+        ('runrc.sh', wine_rc.RunRC(args.bottle, args.wine)),
         ('runrc.fish', wine_rc.RunRCFish(args.bottle, args.wine)),
         ('uncorkrc.sh', wine_rc.UncorkRC(args.bottle, args.wine)),
         ('uncorkrc.fish', wine_rc.UncorkRCFish(args.bottle, args.wine)),
