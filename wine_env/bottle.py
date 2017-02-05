@@ -9,7 +9,6 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('bottle', help='The name of the Wine bottle, e.g. PvZ', type=is_valid_bottle)
     parser.add_argument('--wine', help='The path to the Wine executable to use')
-    parser.add_argument('-win32', help='Set WINEARCH=win32 in the bottle', action='store_true')
     args = parser.parse_args()
 
     if args.wine and not os.path.isfile(args.wine):
@@ -20,10 +19,10 @@ def main():
     os.makedirs(bin, exist_ok=True)
 
     rcs = (
-        ('runrc.sh', wine_rc.RunRC(args.bottle, args.wine, args.win32)),
-        ('runrc.fish', wine_rc.RunRCFish(args.bottle, args.wine, args.win32)),
-        ('uncorkrc.sh', wine_rc.UncorkRC(args.bottle, args.wine, args.win32)),
-        ('uncorkrc.fish', wine_rc.UncorkRCFish(args.bottle, args.wine, args.win32)),
+        ('runrc.sh', wine_rc.RunRC(args.bottle, args.wine),
+        ('runrc.fish', wine_rc.RunRCFish(args.bottle, args.wine)),
+        ('uncorkrc.sh', wine_rc.UncorkRC(args.bottle, args.wine)),
+        ('uncorkrc.fish', wine_rc.UncorkRCFish(args.bottle, args.wine)),
     )
 
     for rc_basename, rc_maker in rcs:
