@@ -4,7 +4,7 @@ import os
 exe = '~/Software/wine-1.7.3/bin/wine'
 
 
-def get_path(filename):
+def get_path(filename: str) -> str:
     directory = os.path.dirname(__file__)
     return os.path.join(directory, 'test_data', filename)
 
@@ -42,13 +42,11 @@ def test_runrc_fish():
         expected = f.read()
     assert expected == rc.get_rc()
 
-
 def test_runrc_exe_fish():
     rc = wine_rc.RunRCFish('bottle', exe)
     with open(get_path('runrc_exe.fish')) as f:
         expected = f.read()
     assert expected == rc.get_rc()
-
 
 def test_uncorkc_fish():
     rc = wine_rc.UncorkRCFish('bottle')
@@ -56,10 +54,8 @@ def test_uncorkc_fish():
         expected = f.read()
     assert expected == rc.get_rc()
 
-
 def test_uncorkc_exe_fish():
     rc = wine_rc.UncorkRCFish('bottle', exe)
     with open(get_path('uncorkrc_exe.fish')) as f:
         expected = f.read()
     assert expected == rc.get_rc()
-
