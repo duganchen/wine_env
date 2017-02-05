@@ -33,7 +33,7 @@ def main():
     print(f'\tuncork {args.bottle}')
 
 
-def is_valid_bottle(value):
+def is_valid_bottle(value: str) -> str:
     if not re.match(r'^\w+$', value):
         raise argparse.ArgumentTypeError(f'{value} is not a valid bottle name.')
     return value

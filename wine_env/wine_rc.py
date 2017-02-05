@@ -1,5 +1,6 @@
 from io import StringIO
 import os
+from typing import List
 
 
 class WineRCBase(object):
@@ -8,7 +9,7 @@ class WineRCBase(object):
     wine_loader = os.path.join('$W', 'bin', 'wine')
     wine_dll_path = os.path.join('$W', 'lib', 'wine', 'fakedlls')
 
-    def __init__(self, bottle, wine_executable=None):
+    def __init__(self, bottle: str, wine_executable=None):
 
         self._prefix = os.path.join(
             '$HOME', '.local', 'share', 'wineprefixes', bottle
@@ -22,11 +23,11 @@ class WineRCBase(object):
                 os.path.dirname(os.path.expanduser(self._wine))
             )
 
-    def get_all_keys(self):
+    def get_all_keys(self) -> List[str]:
 
         return ['WINEVERPATH', 'PATH', 'WINESERVER', 'WINELOADER', 'WINEDLLPATH', 'LD_LIBRARY_PATH', 'WINEPREFIX']
 
-    def get_env(self):
+    def get_env(self) -> dict:
 
         environment = {'WINEPREFIX': self._prefix}
 
@@ -45,7 +46,7 @@ class WineRC(WineRCBase):
     path = ':'.join([os.path.join('$W', 'bin'), '$PATH'])
     ld_library_path = ':'.join([os.path.join('$W', 'lib'), '$LD_LIBRARY_PATH'])
 
-    def _get_exe_env(self):
+    def _get_exe_env(self) -> dict:
         return {
             'WINEVERPATH': '"$W"',
             'PATH': f'"{self.path}"',
@@ -62,8 +63,7 @@ class WineRCFish(WineRCBase):
     path = ' '.join([os.path.join('$W', 'bin'), '$PATH'])
     ld_library_path = ' '.join([os.path.join('$W', 'lib'), '$LD_LIBRARY_PATH'])
 
-
-    def _get_exe_env(self):
+    def _get_exe_env(self) -> dict:
 
         return {
             'WINEVERPATH': '$W',
@@ -77,7 +77,7 @@ class WineRCFish(WineRCBase):
 
 class RunRC(WineRC):
 
-    def get_rc(self):
+    def get_rc(self) -> str:
         env = self.get_env()
         string_io = StringIO()
         if self._wine:
@@ -92,7 +92,7 @@ class RunRC(WineRC):
 
 class UncorkRC(WineRC):
 
-    def get_rc(self):
+    def get_rc(self) -> str:
         env = self.get_env()
 
         string_io = StringIO()
@@ -175,7 +175,7 @@ class UncorkRC(WineRC):
 
 class RunRCFish(WineRCFish):
 
-    def get_rc(self):
+    def get_rc(self) -> str:
         env = self.get_env()
         string_io = StringIO()
         if self._wine:
@@ -189,7 +189,7 @@ class RunRCFish(WineRCFish):
 
 class UncorkRCFish(WineRCFish):
 
-    def get_rc(self):
+    def get_rc(self) -> str:
 
         string_io = StringIO()
 
@@ -253,4 +253,3 @@ class UncorkRCFish(WineRCFish):
         string_io.write('\tcd $WINEPREFIX/drive_c\n')
         string_io.write('end\n')
         return string_io.getvalue()
-
