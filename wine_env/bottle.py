@@ -4,7 +4,7 @@ import os
 import re
 
 
-def main():
+def main() -> None:
 
     parser = argparse.ArgumentParser()
     parser.add_argument('bottle', help='The name of the Wine bottle, e.g. PvZ', type=is_valid_bottle)
