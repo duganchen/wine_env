@@ -155,6 +155,7 @@ interactive bottle. To create a Bottle just for running Plants vs Zombies in
 Steam, for example, do the following:
 
 	bottle PvZ ~/wine-1.7.31
+	uncork PvZ
 	winetricks --no-isolate steam
 
 That will install Steam into the PvZ bottle.
