@@ -2,6 +2,7 @@ from wine_env import wine_rc
 import argparse
 import os
 import re
+import sys
 
 
 def main() -> None:
