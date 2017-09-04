@@ -15,11 +15,15 @@ Install it the way you would any Python application:
 
 Do the following to activate it you're using a Bourne-based shell:
 
-	source /usr/bin/bottle.sh
+	source /usr/bin/bottler.sh
+
+#### BASH
 
 If you're using BASH, then also activate autocompletion for BASH:
 
 	source /usr/bin/wine_env_complete.sh
+
+#### ZSH
 
 And if you're using ZSH, then activate autocompletion for ZSH:
 
@@ -38,7 +42,7 @@ add the following:
 
 Then activate wine_env:
 
-	source /usr/bin/bottle.fish
+	source /usr/bin/bottler.fish
 
 ## Usage
 
