@@ -68,7 +68,7 @@ function cork
 	functions -e cork
 end
 
-set W /home/dugan/Software/wine-1.7.3
+set W $HOME/Software/wine-1.7.3
 
 if test -n "$WINEVERPATH"
 	if not set -q _OLD_WINEVERPATH

@@ -19,9 +19,7 @@ class WineRCBase(object):
 
         self._wine = wine_executable
         if self._wine:
-            self._wine = os.path.dirname(
-                os.path.dirname(os.path.expanduser(self._wine))
-            )
+            self._wine = os.path.dirname(os.path.dirname(self._wine))
 
     def get_all_keys(self) -> List[str]:
 
@@ -81,7 +79,7 @@ class RunRC(WineRC):
         env = self.get_env()
         string_io = StringIO()
         if self._wine:
-            string_io.write(f'W={self._wine}\n')
+            string_io.write(f'W="{self._wine}"\n')
             string_io.write('\n')
         for key in sorted(env.keys()):
             string_io.write(f'{key}={env[key]}\n')
@@ -98,7 +96,7 @@ class UncorkRC(WineRC):
         string_io = StringIO()
 
         if self._wine:
-            string_io.write(f'W={self._wine}\n')
+            string_io.write(f'W="{self._wine}"\n')
             string_io.write('\n')
 
         string_io.write('if type cork &> /dev/null; then\n')
@@ -110,7 +108,7 @@ class UncorkRC(WineRC):
         string_io.write('\n')
 
         for key in self.get_all_keys():
-            string_io.write(f'\tif [ -n "_OLD_{key}" ]; then\n')
+            string_io.write(f'\tif [ -n "$_OLD_{key}" ]; then\n')
             string_io.write(f'\t\t{key}="$_OLD_{key}"\n')
             string_io.write(f'\t\texport {key}\n')
             string_io.write(f'\t\tunset _OLD_{key}\n')
@@ -128,7 +126,7 @@ class UncorkRC(WineRC):
         string_io.write('\n')
 
         string_io.write('\tif [ -z "$_OLD_WD" ]; then\n')
-        string_io.write('\t\tcd $_OLD_WD\n')
+        string_io.write('\t\tcd "$_OLD_WD"\n')
         string_io.write('\t\tunset _OLD_WD\n')
         string_io.write('\tfi\n')
         string_io.write('\n')
