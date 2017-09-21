@@ -180,9 +180,10 @@ bottle.
 
 Please regenerate your bottles whenever you upgrade wine_env.
 
-To delete bottles, simply delete them from the following directory:
+To delete bottles, simply delete them from the following locations:
 
-	~/.local/share/wineprefixes.
+	~/.config/wine_env/
+	~/.local/share/wineprefixes/
 
 ## Notes on the Prompt
 
