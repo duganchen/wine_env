@@ -10,7 +10,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument('bottle', help='The name of the Wine bottle, e.g. PvZ', type=is_valid_bottle)
     parser.add_argument('--wine', help='The path to the Wine executable to use')
-    parser.add_argument('--winearch', help='Set WINEARCH to this value')
+    parser.add_argument('--winearch', help='Set WINEARCH to this value', choices=['win32', 'win64'])
     args = parser.parse_args()
 
     if args.wine and not os.path.isfile(args.wine):
