@@ -66,11 +66,6 @@ cork() {
 		unset _OLD_PS1
 	fi
 
-	if [ -z "$_OLD_WD" ]; then
-		cd "$_OLD_WD"
-		unset _OLD_WD
-	fi
-
 	unset W
 	unset BOTTLE
 	unset -f goc
@@ -147,9 +142,6 @@ if [ -z "$WINE_ENV_DISABLE_PROMPT" ]; then
 	_OLD_PS1="$PS1"
 	PS1="(bottle)$PS1"
 fi
-
-_OLD_WD="$(pwd)"
-cd "$HOME/.local/share/wineprefixes/bottle"
 
 goc() {
 	cd "$WINEPREFIX/drive_c"

@@ -2,8 +2,8 @@ function uncork
 
 	switch (count $argv)
 		case 1
-			if [ -f $HOME/.local/share/wineprefixes/$argv[1]/bin/uncorkrc.fish ]
-				source $HOME/.local/share/wineprefixes/$argv[1]/bin/uncorkrc.fish
+			if [ -f $HOME/.config/wine_env/$argv[1]/uncorkrc.fish ]
+				source $HOME/.config/wine_env/$argv[1]/uncorkrc.fish
 			else
 				echo Invalid prefix
 			end
@@ -24,8 +24,8 @@ function __bottles
 	set cmd (commandline -opc)
 	if test (count $cmd) -eq 1
 		for prefix in $HOME/.local/share/wineprefixes/*
-			if test -f $prefix/bin/uncorkrc.fish
-				basename $prefix
+			if test -d $prefix
+				echo $prefix
 			end
 		end
 	end

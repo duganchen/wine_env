@@ -59,11 +59,6 @@ function cork
 		set -e BOTTLE
 	end
 
-	if set -q _OLD_PWD
-		cd "$_OLD_PWD"
-		set -e _OLD_PWD
-	end
-
 	functions -e goc
 	functions -e cork
 end
@@ -112,9 +107,6 @@ if test -n "$WINEPREFIX"
 	end
 end
 set -gx WINEPREFIX $HOME/.local/share/wineprefixes/bottle
-
-set -gx _OLD_PWD $PWD
-cd $HOME/.local/share/wineprefixes/bottle
 
 function goc
 	cd $WINEPREFIX/drive_c

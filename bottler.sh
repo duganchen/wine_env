@@ -2,8 +2,8 @@ uncork() {
 
 	case $# in
 	(1)
-		if [ -f "$HOME/.local/share/wineprefixes/$1/bin/uncorkrc.sh" ]; then
-			. "$HOME/.local/share/wineprefixes/$1/bin/uncorkrc.sh"
+		if [ -f "$HOME/.config/wine_env/$1/uncorkrc.sh" ]; then
+			. "$HOME/.config/wine_env/$1/uncorkrc.sh"
 		else
 			echo "Bottle $1 not found."
 		fi
