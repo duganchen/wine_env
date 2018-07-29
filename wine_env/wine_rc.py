@@ -9,7 +9,7 @@ class WineRCBase(object):
     wine_loader = os.path.join('$W', 'bin', 'wine')
     wine_dll_path = os.path.join('$W', 'lib', 'wine', 'fakedlls')
 
-    def __init__(self, bottle: str, wine_executable: Optional[str]=None):
+    def __init__(self, bottle: str, wine_executable: Optional[str]=None, winearch: Optional[str]=None):
 
         self._prefix = os.path.join(
             '$HOME', '.local', 'share', 'wineprefixes', bottle
@@ -19,17 +19,25 @@ class WineRCBase(object):
 
         self._wine = wine_executable
         if self._wine:
-            self._wine = os.path.dirname(
-                os.path.dirname(os.path.expanduser(self._wine))
-            )
+            self._wine = os.path.dirname(os.path.dirname(self._wine))
+
+        self._winearch = winearch
+
 
     def get_all_keys(self) -> List[str]:
 
-        return ['WINEVERPATH', 'PATH', 'WINESERVER', 'WINELOADER', 'WINEDLLPATH', 'LD_LIBRARY_PATH', 'WINEPREFIX']
+        keys = ['WINEVERPATH', 'PATH', 'WINESERVER', 'WINELOADER', 'WINEDLLPATH', 'LD_LIBRARY_PATH', 'WINEPREFIX']
+        if self._winearch:
+            keys.append('WINEARCH')
+        return keys
+
 
     def get_env(self) -> Dict[str, str]:
 
         environment = {'WINEPREFIX': self._prefix}
+
+        if self._winearch:
+            environment['WINEARCH'] = self._winearch
 
         if not self._wine:
             return environment
@@ -81,7 +89,7 @@ class RunRC(WineRC):
         env = self.get_env()
         string_io = StringIO()
         if self._wine:
-            string_io.write(f'W={self._wine}\n')
+            string_io.write(f'W="{self._wine}"\n')
             string_io.write('\n')
         for key in sorted(env.keys()):
             string_io.write(f'{key}={env[key]}\n')
@@ -98,7 +106,7 @@ class UncorkRC(WineRC):
         string_io = StringIO()
 
         if self._wine:
-            string_io.write(f'W={self._wine}\n')
+            string_io.write(f'W="{self._wine}"\n')
             string_io.write('\n')
 
         string_io.write('if type cork &> /dev/null; then\n')
@@ -110,7 +118,7 @@ class UncorkRC(WineRC):
         string_io.write('\n')
 
         for key in self.get_all_keys():
-            string_io.write(f'\tif [ -n "_OLD_{key}" ]; then\n')
+            string_io.write(f'\tif [ -n "$_OLD_{key}" ]; then\n')
             string_io.write(f'\t\t{key}="$_OLD_{key}"\n')
             string_io.write(f'\t\texport {key}\n')
             string_io.write(f'\t\tunset _OLD_{key}\n')
@@ -124,12 +132,6 @@ class UncorkRC(WineRC):
         string_io.write('\t\tPS1="$_OLD_PS1"\n')
         string_io.write('\t\texport PS1\n')
         string_io.write('\t\tunset _OLD_PS1\n')
-        string_io.write('\tfi\n')
-        string_io.write('\n')
-
-        string_io.write('\tif [ -z "$_OLD_WD" ]; then\n')
-        string_io.write('\t\tcd $_OLD_WD\n')
-        string_io.write('\t\tunset _OLD_WD\n')
         string_io.write('\tfi\n')
         string_io.write('\n')
 
@@ -163,9 +165,6 @@ class UncorkRC(WineRC):
         string_io.write('\t_OLD_PS1="$PS1"\n')
         string_io.write(f'\tPS1="({self._bottle})$PS1"\n')
         string_io.write('fi\n')
-        string_io.write('\n')
-        string_io.write('_OLD_WD="$(pwd)"\n')
-        string_io.write(f'cd "{self._prefix}"\n')
         string_io.write('\n')
         string_io.write('goc() {\n')
         string_io.write('\tcd "$WINEPREFIX/drive_c"\n')
@@ -218,11 +217,6 @@ class UncorkRCFish(WineRCFish):
         string_io.write('\t\tset -e BOTTLE\n')
         string_io.write('\tend\n')
         string_io.write('\n')
-        string_io.write('\tif set -q _OLD_PWD\n')
-        string_io.write('\t\tcd "$_OLD_PWD"\n')
-        string_io.write('\t\tset -e _OLD_PWD\n')
-        string_io.write('\tend\n')
-        string_io.write('\n')
         string_io.write('\tfunctions -e goc\n')
         string_io.write('\tfunctions -e cork\n')
         string_io.write('end\n')
@@ -246,9 +240,6 @@ class UncorkRCFish(WineRCFish):
 
         string_io.write('\n')
 
-        string_io.write('set -gx _OLD_PWD $PWD\n')
-        string_io.write(f'cd {self._prefix}\n')
-        string_io.write('\n')
         string_io.write('function goc\n')
         string_io.write('\tcd $WINEPREFIX/drive_c\n')
         string_io.write('end\n')

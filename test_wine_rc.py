@@ -1,7 +1,7 @@
 from wine_env import wine_rc
 import os
 
-exe = '~/Software/wine-1.7.3/bin/wine'
+exe = '$HOME/Software/wine-1.7.3/bin/wine'
 
 
 def get_path(filename: str) -> str:

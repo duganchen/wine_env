@@ -4,7 +4,7 @@ fi
 
 cork() {
 
-	if [ -n "_OLD_WINEVERPATH" ]; then
+	if [ -n "$_OLD_WINEVERPATH" ]; then
 		WINEVERPATH="$_OLD_WINEVERPATH"
 		export WINEVERPATH
 		unset _OLD_WINEVERPATH
@@ -12,13 +12,13 @@ cork() {
 		unset WINEVERPATH
 	fi
 
-	if [ -n "_OLD_PATH" ]; then
+	if [ -n "$_OLD_PATH" ]; then
 		PATH="$_OLD_PATH"
 		export PATH
 		unset _OLD_PATH
 	fi
 
-	if [ -n "_OLD_WINESERVER" ]; then
+	if [ -n "$_OLD_WINESERVER" ]; then
 		WINESERVER="$_OLD_WINESERVER"
 		export WINESERVER
 		unset _OLD_WINESERVER
@@ -26,7 +26,7 @@ cork() {
 		unset WINESERVER
 	fi
 
-	if [ -n "_OLD_WINELOADER" ]; then
+	if [ -n "$_OLD_WINELOADER" ]; then
 		WINELOADER="$_OLD_WINELOADER"
 		export WINELOADER
 		unset _OLD_WINELOADER
@@ -34,7 +34,7 @@ cork() {
 		unset WINELOADER
 	fi
 
-	if [ -n "_OLD_WINEDLLPATH" ]; then
+	if [ -n "$_OLD_WINEDLLPATH" ]; then
 		WINEDLLPATH="$_OLD_WINEDLLPATH"
 		export WINEDLLPATH
 		unset _OLD_WINEDLLPATH
@@ -42,7 +42,7 @@ cork() {
 		unset WINEDLLPATH
 	fi
 
-	if [ -n "_OLD_LD_LIBRARY_PATH" ]; then
+	if [ -n "$_OLD_LD_LIBRARY_PATH" ]; then
 		LD_LIBRARY_PATH="$_OLD_LD_LIBRARY_PATH"
 		export LD_LIBRARY_PATH
 		unset _OLD_LD_LIBRARY_PATH
@@ -50,7 +50,7 @@ cork() {
 		unset LD_LIBRARY_PATH
 	fi
 
-	if [ -n "_OLD_WINEPREFIX" ]; then
+	if [ -n "$_OLD_WINEPREFIX" ]; then
 		WINEPREFIX="$_OLD_WINEPREFIX"
 		export WINEPREFIX
 		unset _OLD_WINEPREFIX
@@ -62,11 +62,6 @@ cork() {
 		PS1="$_OLD_PS1"
 		export PS1
 		unset _OLD_PS1
-	fi
-
-	if [ -z "$_OLD_WD" ]; then
-		cd $_OLD_WD
-		unset _OLD_WD
 	fi
 
 	unset W
@@ -133,9 +128,6 @@ if [ -z "$WINE_ENV_DISABLE_PROMPT" ]; then
 	_OLD_PS1="$PS1"
 	PS1="(bottle)$PS1"
 fi
-
-_OLD_WD="$(pwd)"
-cd "$HOME/.local/share/wineprefixes/bottle"
 
 goc() {
 	cd "$WINEPREFIX/drive_c"

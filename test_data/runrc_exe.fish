@@ -1,4 +1,4 @@
-set W /home/dugan/Software/wine-1.7.3
+set W $HOME/Software/wine-1.7.3
 
 set -gx LD_LIBRARY_PATH $W/lib $LD_LIBRARY_PATH
 set -gx PATH $W/bin $PATH

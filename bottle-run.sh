@@ -13,9 +13,9 @@ if [ $# -lt 2 ]; then
 fi
 
 BOTTLE=$1
-PREFIX="$HOME/.local/share/wineprefixes/$BOTTLE"
+RCDIR="$HOME/.config/wine_env/$BOTTLE"
 
-if [ ! -d "$PREFIX" ]; then
+if [ ! -d "$RCDIR" ]; then
 	cat <<- EOF
 	Bottle "$BOTTLE" not found"
 	Run "lsp" to list bottles
@@ -24,7 +24,7 @@ if [ ! -d "$PREFIX" ]; then
 	exit 1
 fi
 
-RUNRC="$PREFIX/bin/runrc.sh"
+RUNRC="$RCDIR/runrc.sh"
 
 if [ ! -f "$RUNRC" ];  then
 	cat <<- EOF
@@ -32,11 +32,6 @@ if [ ! -f "$RUNRC" ];  then
 	Please use "bottle" to (re)create the bottle "$BOTTLE".
 	EOF
 	exit 1
-fi
-
-# If we already have an environment loaded, clear it out.
-if [ -n "$WINEPREFIX" -a -f "$WINEPREFIX/bin/corkrc.sh" ]; then
-    . "$WINEPREFIX/bin/corkrc.sh"
 fi
 
 . "$RUNRC"

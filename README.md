@@ -81,14 +81,16 @@ You can then activate that bottle:
 	uncork D3
 
 Activating a bottle puts you in that *bottle environment*. Your
-prompt will now start with "(D3)", and your current directory will be changed
-to your new Wine bottle:
-
-	~/.local/share/wineprefixes/D3
+prompt will now start with "(D3)".
 
 Running *wine* or *winecfg* from the D3 bottle environment will launch
 version 1.7.31 of either tool. The WINEPREFIX variable will be set
 so that they'll write to, and read from, the D3 bottle directory.
+
+Use winecfg to create the bottle on disk:
+
+    winecfg
+
 
 ### Installing Software
 
@@ -186,9 +188,10 @@ bottle.
 
 Please regenerate your bottles whenever you upgrade wine_env.
 
-To delete bottles, simply delete them from the following directory:
+To delete bottles, simply delete them from the following locations:
 
-	~/.local/share/wineprefixes.
+	~/.config/wine_env/
+	~/.local/share/wineprefixes/
 
 ## Notes on the Prompt
 
