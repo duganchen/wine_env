@@ -1,5 +1,13 @@
 # wine_env
 
+## Update:
+
+Personally, I've replaced this with
+[a new bottle manager](https://gist.github.com/duganchen/fd78b16a799be39d3d6c438b2c8a9228).
+This repository will likely be deleted soon.
+
+## Anyway...
+
 This is a command-line system to manage your installations of Wine and of
 Wine software.
 
